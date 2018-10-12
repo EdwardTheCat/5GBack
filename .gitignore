@@ -1,0 +1,24 @@
+﻿# Jetbrains IDEs
+.idea/
+*.iml
+target/
+*.class
+
+# Eclipse (a mettre à jour par quelqu'un qui l'utilise)
+.project
+.classpath
+
+# Built application files
+/*/build/
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+
+# Intellij
+*.iml
+.idea
