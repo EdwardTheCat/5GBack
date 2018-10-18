@@ -12,7 +12,7 @@ public interface UsersService {
     @GET
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    Response getShape(@PathParam("userId") String userId,@QueryParam("password") String password);
+    Response getUser(@PathParam("userId") String userId,@QueryParam("password") String password);
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

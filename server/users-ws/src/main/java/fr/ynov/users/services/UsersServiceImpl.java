@@ -16,7 +16,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Response getShape(String userId, String password) {
+    public Response getUser(String userId, String password) {
         if (userId== null || password == null){
           return Response.status(Response.Status.BAD_REQUEST).build();
         }
