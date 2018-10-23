@@ -1,10 +1,7 @@
 package com.personal.servlet;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.Writer;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -17,7 +14,6 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
 public class HomeServlet extends HttpServlet{
-	
 	
 	/**
 	 * 

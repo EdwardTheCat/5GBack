@@ -17,6 +17,13 @@
   		<artifactId>compiler</artifactId>
   		<version>0.9.5</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/core -->
+<dependency>
+    <groupId>com.github.spullara.mustache.java</groupId>
+    <artifactId>core</artifactId>
+    <version>0.6.3</version>
+</dependency>
+	
   </dependencies>
   
   <build>
