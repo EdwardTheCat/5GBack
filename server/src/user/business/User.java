@@ -13,21 +13,27 @@ public class User {
 	private boolean user_admin;
 	private boolean user_online;
 	private LocalDate user_last_connection;
+	private LocalDate user_creation_date;
 
 
 
-	public User(int user_id, String user_name, String user_first_name, String user_mail, String user_password) {
+	public User(int user_id, String user_name, String user_first_name, 
+			String user_mail, String user_password, boolean user_active, boolean user_admin,
+			boolean user_online, LocalDate user_last_connection, LocalDate user_creation_date) {
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.user_first_name = user_first_name;
 		this.user_mail = user_mail;
 		this.user_password = user_password;
+		this.user_active = user_active;
+		this.user_admin = user_admin;
+		this.user_creation_date = user_creation_date;
+		this.user_online = user_online;
+		this.user_last_connection = user_last_connection;
 	}
-	
-	
-	
-	
-	
+
+
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -82,12 +88,26 @@ public class User {
 	public void setUser_last_connection(LocalDate user_last_connection) {
 		this.user_last_connection = user_last_connection;
 	}
+	public LocalDate getUser_creation_date() {
+		return user_creation_date;
+	}
+
+	public void setUser_creation_date(LocalDate user_creation_date) {
+		this.user_creation_date = user_creation_date;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name + ", user_first_name=" + user_first_name
 				+ ", user_mail=" + user_mail + ", user_password=" + user_password + ", user_active=" + user_active
 				+ ", user_admin=" + user_admin + ", user_online=" + user_online + ", user_last_connection="
-				+ user_last_connection + "]";
+				+ user_last_connection + ", user_creation_date=" + user_creation_date + "]";
 	}
+
+
 
 }

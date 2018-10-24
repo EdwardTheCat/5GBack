@@ -1,5 +1,9 @@
 package director.business;
 
-public class DirWords {
+import java.util.ArrayList;
+
+public class DirWords extends ArrayList <DirWord>{
+
+	private static final long serialVersionUID = 1L;
 
 }
