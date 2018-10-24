@@ -16,6 +16,18 @@ public class User {
 
 
 
+	public User(int user_id, String user_name, String user_first_name, String user_mail, String user_password) {
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.user_first_name = user_first_name;
+		this.user_mail = user_mail;
+		this.user_password = user_password;
+	}
+	
+	
+	
+	
+	
 	public int getUser_id() {
 		return user_id;
 	}
