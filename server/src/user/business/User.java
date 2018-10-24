@@ -1,6 +1,7 @@
 package user.business;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class User {
 
@@ -12,14 +13,14 @@ public class User {
 	private boolean user_active;
 	private boolean user_admin;
 	private boolean user_online;
-	private LocalDate user_last_connection;
+	private LocalDateTime user_last_connection;
 	private LocalDate user_creation_date;
 
 
 
 	public User(int user_id, String user_name, String user_first_name, 
 			String user_mail, String user_password, boolean user_active, boolean user_admin,
-			boolean user_online, LocalDate user_last_connection, LocalDate user_creation_date) {
+			boolean user_online, LocalDateTime user_last_connection, LocalDate user_creation_date) {
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.user_first_name = user_first_name;
@@ -27,12 +28,25 @@ public class User {
 		this.user_password = user_password;
 		this.user_active = user_active;
 		this.user_admin = user_admin;
-		this.user_creation_date = user_creation_date;
 		this.user_online = user_online;
 		this.user_last_connection = user_last_connection;
+		this.user_creation_date = user_creation_date;
 	}
 
 
+	public User(int user_id, String user_name, String user_first_name, 
+			String user_mail, String user_password, LocalDateTime user_last_connection, LocalDate user_creation_date) {
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.user_first_name = user_first_name;
+		this.user_mail = user_mail;
+		this.user_password = user_password;
+		this.user_last_connection = user_last_connection;
+		this.user_creation_date = user_creation_date;
+	}
+	
+	
+	
 
 	public int getUser_id() {
 		return user_id;
@@ -82,10 +96,10 @@ public class User {
 	public void setUser_online(boolean user_online) {
 		this.user_online = user_online;
 	}
-	public LocalDate getUser_last_connection() {
+	public LocalDateTime getUser_last_connection() {
 		return user_last_connection;
 	}
-	public void setUser_last_connection(LocalDate user_last_connection) {
+	public void setUser_last_connection(LocalDateTime user_last_connection) {
 		this.user_last_connection = user_last_connection;
 	}
 	public LocalDate getUser_creation_date() {
