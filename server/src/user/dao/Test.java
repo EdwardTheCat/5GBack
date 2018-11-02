@@ -10,73 +10,83 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import db_connection.DbAcces;
 import user.business.User;
 import user.business.Users;
 
-public class DaoUser {
 
 
-	public void createUser (User user) throws SQLException {
+
+public class Test {
+
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
+		createUserTest();
+		deleteUserTest();
+		selectAllUsersTest();
+
+
+	}
+
+
+	public static void createUserTest() {
 
 		try {
 			Class.forName(DbAcces.jdbcDriver);
 			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/5g","apo","1239");	
 
-			String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?)";
+
 
 			PreparedStatement ps = connect.prepareStatement(sql);
 
-			LocalDateTime currentTime = LocalDateTime.now();
-			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/YY - hh:mm");
-			String formattedString1 = currentTime.format(formatter1);
+			LocalDateTime currentTime2 = LocalDateTime.now();
 
+			LocalDateTime currentTime = LocalDateTime.now();
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy - HH:mm" );
+			String formattedString = currentTime2.format(formatter);
 			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YY");
 			String formattedString2 = currentTime.format(formatter2);
 
-
-			ps.setInt		(1, user.getUser_id());
-			ps.setString	(2, user.getUser_name());
-			ps.setString	(3, user.getUser_first_name());
-			ps.setString	(4, user.getUser_mail());
-			ps.setString	(5, user.getUser_password());
-			ps.setBoolean	(6, user.isUser_active());
-			ps.setBoolean	(7, user.isUser_admin());
-			ps.setBoolean	(8, user.isUser_online());
-			ps.setString	(9, formattedString1);
+			ps.setInt		(1, 0);
+			ps.setString	(2, "toto");
+			ps.setString	(3, "Paulo");
+			ps.setString	(4, "coucou@123.fr");
+			ps.setString	(5, "kkk");
+			ps.setBoolean	(6, true);
+			ps.setBoolean	(7, false);
+			ps.setBoolean	(8, false);
+			ps.setString 	(9, formattedString);
 			ps.setString	(10,formattedString2);
 
 			ps.executeUpdate();
 
-			System.out.println(user);
-
 			ps.close();
-			close();
+			connect.close();
 			connect = null;
 
-		}catch (ClassNotFoundException e) {
-			System.out.println("problème de valeur");
+			System.out.println("test create user termine");
 
+		} catch (ClassNotFoundException e) {
+			System.out.println("problème de valeur");
 
 
 		} catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
-
 		}
 
 	}
 
 
-
-	public void deleteUser (User user){
+	public static void deleteUserTest () {
 
 		try {
 			Class.forName(DbAcces.jdbcDriver);
 			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/5g","apo","1239");	
 
-			int user_id = user.getUser_id();
+			int user_id = 3;
 
 			String sql = "DELETE FROM USER WHERE user_id =" + user_id;
 
@@ -85,7 +95,7 @@ public class DaoUser {
 			stmt.executeUpdate(sql);
 
 			stmt.close();
-			close();
+			connect.close();
 			connect = null;
 
 		}  catch (ClassNotFoundException e) {
@@ -96,10 +106,15 @@ public class DaoUser {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
 		}
+
+		System.out.println("test delete user termine");
 	}
 
 
-	public Users selectAllUsers (){
+
+
+//TODO recuperer les booleens
+	public static Users selectAllUsersTest(){
 
 
 		Users users = new Users();
@@ -137,7 +152,7 @@ public class DaoUser {
 
 			}
 
-			System.out.println("liste users depuis methode select de daoUser : "+ users);
+			System.out.println("liste users depuis methode selectTest de test : "+ users);
 
 
 		}  catch (ClassNotFoundException e) {
@@ -154,74 +169,18 @@ public class DaoUser {
 	}
 
 
-//	public void updateUser (User user){
-//
-//		try {
-//			Class.forName(DbAcces.jdbcDriver);
-//			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/5g","apo","1239");
-//			
-//			int user_id = user.getUser_id();
-//			String user_name = user.getUser_name();
-//			String user__first_name = user.getUser_first_name();
-//			String user_mail = user.getUser_mail();
-//			boolean user_active = user.isUser_active();
-//			boolean user_admin = user.isUser_admin();
-//
-////			int refDoc = document.getRefDoc();
-////			int refCat = document.getRefCat();
-//
-//			String sql = "UPDATE 5g.user SET user_name = '" + user_name +   "'WHERE user_id = '" + user_id + "'";
-//			
-//			
-////			
-////			CREATE TABLE user (
-////				     user_id INT NOT NULL AUTO_INCREMENT,
-////				     user_name VARCHAR(30) NOT NULL,
-////				     user_first_name VARCHAR(30),
-////				     user_mail VARCHAR(50) NOT NULL,
-////				     user_password VARCHAR(10),
-////				     user_active BOOLEAN DEFAULT 1,
-////				     user_admin BOOLEAN DEFAULT 0,
-////				     user_online BOOLEAN DEFAULT 0,
-////				     user_last_connection TIMESTAMP,
-////				     user_creation VARCHAR(30),
-////					 PRIMARY KEY (user_id)
-////				) ;
-//
-//			Statement stmt = connect.createStatement();
-//
-//			stmt.executeUpdate(sql);
-//
-//			stmt.close();
-//			connect.close();
-//			connect = null;
-//
-//		}  catch (ClassNotFoundException e) {
-//			System.out.println("problème de valeur");
-//
-//
-//		} catch (SQLException e) {
-//			System.out.println("Mauvaise connexion");
-//			e.printStackTrace();
-//		}
-//	}
 
 
 
 
 
-
-	public void close() throws SQLException {
-		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/5g","apo","1239");	
-		try {
-			if (!connect.isClosed()) connect.close();
-		} catch (SQLException e) {
-			System.out.println("=== AccesBdD : Probleme close connection");
-			e.printStackTrace();
-		}
-	}
 
 }
+
+
+
+
+
 
 
 
