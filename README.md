@@ -7,8 +7,10 @@
 
 /*BDD Mysql*/
 Download MySQL Community Server 8.0
+https://dev.mysql.com/downloads/mysql/
 Login root 
 MDP root
+Executer les requêtes suivantes :
 
 /*CREATE SCHEMA*/
 CREATE SCHEMA 5g;
@@ -16,7 +18,7 @@ CREATE SCHEMA 5g;
 /*USE SCHEMA*/
 USE 5g;
 
-/*CREATE USER*/
+/*CREATE TABLE USER*/
 CREATE TABLE user (
      user_id INT NOT NULL AUTO_INCREMENT,
      user_name VARCHAR(30) NOT NULL,
@@ -34,7 +36,18 @@ CREATE TABLE user (
 ) ;
 
 
-/*INSERT DATAS*/
+/*CREATE TABLE MESSAGE*/
+CREATE TABLE `message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content` varchar(45) NOT NULL,
+  `id_author` int(11) unsigned NOT NULL,
+  `id_discussion` int(11) unsigned NOT NULL,
+  `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+
+/*INSERT DATAS USER*/
 INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin,
 user_last_connection, user_creation, user_status, user_token) VALUES ('Dupont', 'Tom', 'tom@localhost.fr', 'tomDupont', '123', 1, 0, '2008-11-13 21:52:00', '08/11/18', 'En ligne', '123ABC');
 
@@ -49,3 +62,21 @@ user_last_connection, user_creation, user_status, user_token) VALUES ('Roger', '
 
 INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin,
 user_last_connection, user_creation, user_status, user_token) VALUES ('Bertrand', 'Paul', 'paul@gmail.com', 'pol12',  '123Paul', 1, 0, '2008-11-15 11:12:00', '04/11/18', 'Absent', 'MJVFS8N9');
+
+
+
+/*INSERT DATAS MESSAGE*/
+Insert INTO 5g.message (content, id_author, id_discussion, created_at) VALUES
+("contenu message 1", 1, 1, current_timestamp(3)),  
+("contenu message 1", 1, 1, current_timestamp(3)),
+("contenu message 2", 2, 1, current_timestamp(3)+1),
+("contenu message 3", 1, 1, current_timestamp(3)+2),
+("contenu message 4", 3, 1, current_timestamp(3)+3),
+("contenu message 5", 4, 1, current_timestamp(3)+4),
+("contenu message 6", 1, 1, current_timestamp(3)+5),
+("contenu message 7", 2, 1, current_timestamp(3)+6),
+("contenu message 8", 1, 2, current_timestamp(3)+7),
+("contenu message 9", 1, 2, current_timestamp(3)+8),
+("contenu message 10", 4, 2, current_timestamp(3)+9),
+("contenu message 11", 2, 2, current_timestamp(3)+10),
+("contenu message 12", 4, 2, current_timestamp(3)+11) ;
