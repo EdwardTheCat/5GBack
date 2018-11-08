@@ -2,6 +2,36 @@
 
 
 ----------------------------------------
+-	 Installation de Maven			   -
+----------------------------------------
+JDK 
+-Download JDK :  jdk-8u191-windows-x64.exe or jdk-8u191-windows-i586.exe
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+ 	
+-Add a JAVA_HOME system variables, and point it to the JDK folder.
+JAVA_HOME "path_to_JDK"
+
+-Add "path_to_JDK"\bin to PATH variable.
+
+Maven
+-install maven:
+requirements : JDK, windows 10
+
+-Download apache maven : apache-maven-3.6.0-bin.zip
+https://maven.apache.org/download.cgi
+
+-And unzip it to a folder.
+
+-Add a MAVEN_HOME system variables, and point it to the Maven folder.
+-Add %MAVEN_HOME%\bin To PATH
+
+-Verification on Command line : 
+>mvn -version
+>echo %MAVEN_HOME%
+
+-
+
+----------------------------------------
 -	 Création de la base de données    -
 ----------------------------------------
 
