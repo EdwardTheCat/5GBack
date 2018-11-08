@@ -2,7 +2,7 @@
 
 
 ----------------------------------------
-	 Installation de Maven			   
+	 #Installation de Maven			   
 --------------------------------
 JDK 
 -Download JDK :  jdk-8u191-windows-x64.exe or jdk-8u191-windows-i586.exe
@@ -32,15 +32,15 @@ https://maven.apache.org/download.cgi
 -
 
 ----------------------------------------
-	 Création de la base de données    
+	 #CrÃ©ation de la base de donnÃ©es    
 -----------------------------------
 
-/\*BDD Mysql\*/
+```/\*BDD Mysql\*/
 - Download MySQL Community Server 8.0
 - https://dev.mysql.com/downloads/mysql/
 - Login root 
 - MDP root
-- Executer les requêtes suivantes :
+- Executer les requÃªtes suivantes :
 
 /\*CREATE SCHEMA\*/
 CREATE SCHEMA 5g;
@@ -88,7 +88,7 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 user_last_connection, user_creation, user_status, user_token) VALUES ('Paul', 'Elodie', 'elodie@free.fr', 'elodie', 'AAA', 1, 0, '2008-11-17 13:12:00', '07/11/18', 'En ligne', 'ABCD12');
 
 INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin,
-user_last_connection, user_creation, user_status, user_token) VALUES ('Roger', 'Virginie', 'vir@gmail.com', 'viRog', 'Pass', 0, 0, '2008-11-17 05:54:00', '07/11/18', 'Déconnecté', '29PP13');
+user_last_connection, user_creation, user_status, user_token) VALUES ('Roger', 'Virginie', 'vir@gmail.com', 'viRog', 'Pass', 0, 0, '2008-11-17 05:54:00', '07/11/18', 'DÃ©connectÃ©', '29PP13');
 
 INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin,
 user_last_connection, user_creation, user_status, user_token) VALUES ('Bertrand', 'Paul', 'paul@gmail.com', 'pol12',  '123Paul', 1, 0, '2008-11-15 11:12:00', '04/11/18', 'Absent', 'MJVFS8N9');
@@ -109,4 +109,4 @@ Insert INTO 5g.message (content, id_author, id_discussion, created_at) VALUES
 ("contenu message 9", 1, 2, current_timestamp(3)+8),
 ("contenu message 10", 4, 2, current_timestamp(3)+9),
 ("contenu message 11", 2, 2, current_timestamp(3)+10),
-("contenu message 12", 4, 2, current_timestamp(3)+11) ;
+("contenu message 12", 4, 2, current_timestamp(3)+11) ;```
