@@ -2,8 +2,8 @@
 
 
 ----------------------------------------
--	 Installation de Maven			   -
-----------------------------------------
+	 Installation de Maven			   
+--------------------------------
 JDK 
 -Download JDK :  jdk-8u191-windows-x64.exe or jdk-8u191-windows-i586.exe
 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
@@ -32,15 +32,15 @@ https://maven.apache.org/download.cgi
 -
 
 ----------------------------------------
--	 Création de la base de données    -
-----------------------------------------
+	 Création de la base de données    
+-----------------------------------
 
 /\*BDD Mysql\*/
-Download MySQL Community Server 8.0
-https://dev.mysql.com/downloads/mysql/
-Login root 
-MDP root
-Executer les requêtes suivantes :
+- Download MySQL Community Server 8.0
+- https://dev.mysql.com/downloads/mysql/
+- Login root 
+- MDP root
+- Executer les requêtes suivantes :
 
 /\*CREATE SCHEMA\*/
 CREATE SCHEMA 5g;
