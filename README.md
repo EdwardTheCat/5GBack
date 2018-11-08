@@ -1,10 +1,7 @@
-"# 5GBack" 
+# 5GBack
+## Installation de Maven			   
 
-
-----------------------------------------
-	 #Installation de Maven			   
---------------------------------
-JDK 
+### JDK 
 -Download JDK :  jdk-8u191-windows-x64.exe or jdk-8u191-windows-i586.exe
 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
  	
