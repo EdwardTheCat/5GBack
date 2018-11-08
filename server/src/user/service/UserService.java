@@ -24,19 +24,11 @@ public class UserService {
 
 
 	@GET
-	@Path("/{name}/{firstname}/{mail}/{password}/{login}")
+	@Path("/{login}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void getUser (@PathParam("name") String name, @PathParam("firstname") String firstname,
 			@PathParam("mail") String mail, @PathParam("password") String password, @PathParam ("login") String login) throws SQLException {
-		User user = new User();
-		user.setId(0);
-		user.setName(name);
-		user.setFirstname(firstname);
-		user.setMail(mail);
-		user.setPassword(password);
-		user.setCreationDate(LocalDate.now());
-		user.setLogin(login);
-		
+		User user = new User(0, name, firstname, mail, password, LocalDate.now(), login);
 		daoUser.createUser(user);
 	}
 
