@@ -1,5 +1,6 @@
 package fr.ynov.message.services;
 
+import fr.ynov.message.providers.MessageProvider;
 import fr.ynov.message.ressources.Message;
 import org.springframework.web.bind.annotation.*;
 
