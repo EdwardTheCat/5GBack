@@ -5,9 +5,10 @@
 -	 Création de la  base de données   -
 ----------------------------------------
 
+/*BDD Mysql*/
+
 /*CREATE SCHEMA*/
 CREATE SCHEMA 5g;
-
 
 /*USE SCHEMA*/
 USE 5g;
