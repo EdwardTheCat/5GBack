@@ -6,6 +6,9 @@
 ----------------------------------------
 
 /*BDD Mysql*/
+Download MySQL Community Server 8.0
+Login root 
+MDP root
 
 /*CREATE SCHEMA*/
 CREATE SCHEMA 5g;
