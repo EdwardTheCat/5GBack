@@ -2,7 +2,7 @@
 
 
 ----------------------------------------
--	 Création de la  base de données   -
+-	 Création de la base de données    -
 ----------------------------------------
 
 /*BDD Mysql*/
