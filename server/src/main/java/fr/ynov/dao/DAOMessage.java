@@ -15,12 +15,32 @@ import fr.ynov.db_connection.DbAcces;
 import fr.ynov.message.Message;
 import fr.ynov.message.Messages;
 
+/**
+ * Class in shape of DAO to extrat message informations from the database
+ * @author edwar
+ * since v0
+ */
 public class DAOMessage {
 
+	/**
+	 * Connection property
+	 */
 	Connection conn = null;
+	/**
+	 * PreparedStatement property
+	 */
 	PreparedStatement ps = null;
+	
+	/**
+	 * ResultSet property
+	 */
 	ResultSet rs = null;
 
+	/**
+	 * Method which create a row in message table that represents a message
+	 * @param message
+	 * @throws SQLException
+	 */
 	public void createMessage (Message message) throws SQLException {
 
 		try {
@@ -60,7 +80,10 @@ public class DAOMessage {
 	}
 
 
-
+	/**
+	 * Method which delete a message oject in database
+	 * @param message
+	 */
 	public void deleteMessage (Message message){
 
 		try {
@@ -102,19 +125,27 @@ public class DAOMessage {
 	}
 
 
-
+	/**
+	 * Method which retrieve a default numbers of messages from database
+	 * @return Messages
+	 */
 	public Messages getMessagesFromIdDisccusion (){
 		return getMessagesFromIdDisccusion(2);
 	}
 
-	public Messages getMessagesFromIdDisccusion (int nombre){
+	/**
+	 * Method which retrieve a numbers of messages from database
+	 * @param number
+	 * @return Messages
+	 */
+	public Messages getMessagesFromIdDisccusion (int number){
 
 		Messages messages = new Messages();
 
 		try {
 			Connection conn = DBConnection.getInstance();	
 
-			String query = "SELECT * FROM message LIMIT " + nombre;
+			String query = "SELECT * FROM message LIMIT " + number;
 
 			if(conn==null) System.out.println("Connection null");
 			PreparedStatement ps = conn.prepareStatement(query);	
