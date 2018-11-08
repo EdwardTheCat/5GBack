@@ -35,14 +35,14 @@ https://maven.apache.org/download.cgi
 -	 Création de la base de données    -
 ----------------------------------------
 
-/*BDD Mysql*/
+/\*BDD Mysql\*/
 Download MySQL Community Server 8.0
 https://dev.mysql.com/downloads/mysql/
 Login root 
 MDP root
 Executer les requêtes suivantes :
 
-/*CREATE SCHEMA*/
+/\*CREATE SCHEMA\*/
 CREATE SCHEMA 5g;
 
 /*USE SCHEMA*/
@@ -68,10 +68,10 @@ CREATE TABLE user (
 
 /*CREATE TABLE MESSAGE*/
 CREATE TABLE `message` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `content` varchar(45) NOT NULL,
-  `id_author` int(11) unsigned NOT NULL,
-  `id_discussion` int(11) unsigned NOT NULL,
+  `id_author` int(11) unsigned NOT NULL, 
+  `id_discussion` int(11) unsigned NOT NULL, 
   `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
