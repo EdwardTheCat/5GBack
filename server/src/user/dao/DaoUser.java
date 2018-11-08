@@ -12,7 +12,6 @@ import user.business.User;
 
 public class DaoUser {
 
-
 	public void createUser (User user) throws SQLException {
 
 		try {
@@ -57,11 +56,8 @@ public class DaoUser {
 		} catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
-
 		}
-
 	}
-
 
 	public void deleteUser (User user){
 
@@ -145,9 +141,4 @@ public class DaoUser {
 			e.printStackTrace();
 		}
 	}
-
 }
-
-
-
-
