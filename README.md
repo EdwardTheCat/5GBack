@@ -41,3 +41,44 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 /*INSERT DATAS MESSAGE*/ Insert INTO 5g.message (content, id_author, id_discussion, created_at) VALUES ("contenu message 1", 1, 1, current_timestamp(3)),
 ("contenu message 1", 1, 1, current_timestamp(3)), ("contenu message 2", 2, 1, current_timestamp(3)+1), ("contenu message 3", 1, 1, current_timestamp(3)+2), ("contenu message 4", 3, 1, current_timestamp(3)+3), ("contenu message 5", 4, 1, current_timestamp(3)+4), ("contenu message 6", 1, 1, current_timestamp(3)+5), ("contenu message 7", 2, 1, current_timestamp(3)+6), ("contenu message 8", 1, 2, current_timestamp(3)+7), ("contenu message 9", 1, 2, current_timestamp(3)+8), ("contenu message 10", 4, 2, current_timestamp(3)+9), ("contenu message 11", 2, 2, current_timestamp(3)+10), ("contenu message 12", 4, 2, current_timestamp(3)+11) ;
 ```
+## Deploiement du projet
+
+### Installation de l'IDE
+
+1. Download [IntelliJ IDEA 2018.2 Complete Edition - Windows](https://www.jetbrains.com/idea/download/index.html#section=windows).
+2. Run the ideaIc.exe or the ideaIU.exe
+3. Import IntelliJ IDEA settings
+4. Select the user interface theme
+5. Disable the unnecessary plugins
+
+### Installation de git bash et import du projet
+
+1. Telecharger [Git](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/Git-2.19.1-64-bit.exe)
+2. Open Git Bash
+3. Write command:
+- `cd /C`
+- `git clone https://github.com/EdwardTheCat/5GBack`
+
+### Import du projet sur IntelliJ (IDE)
+
+1. From the Welcome screen, click Import Project.
+   The Select File or Directory to Import dialog opens.
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Capture_import.png)
+2. Follow the step, next.
+3. Select projet SDK - choose jdk 1.8
+4. Select import project from external model and then Maven
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Capture_import_Project.png)
+5. The right project will be set if you get this :
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Import_Project_Completed.png)
+6. Click on Add Configuration
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Add_Config.png)
+7. Click on the "+" and then on Spring Boot :
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/add_config_spring.png)
+8. You have to get this page :
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/set_config.png)
+9. Click on "play" :
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/run_config.png)
+10. If you get this the project is all set :
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/completed_run.png)
+11. Go on your favorite navigator and write `localhost:8080/`
+![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/see_project.png)
