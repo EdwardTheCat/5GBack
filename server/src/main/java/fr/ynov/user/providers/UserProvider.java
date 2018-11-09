@@ -2,6 +2,7 @@ package fr.ynov.user.providers;
 
 import fr.ynov.db.DBConnection;
 import fr.ynov.user.ressources.User;
+import user.business.Users;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -121,6 +124,48 @@ public class UserProvider {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
 		}
+	}
+	
+    /**
+     * Method which select all users from database
+     * @return users
+     */
+	public Users selectAllUsers(){
+
+		Users users = new Users();
+
+		try {
+			String sql = ("select * from 5g.user");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				int id 										= rs.getInt("user_id");
+				String name 								= rs.getString("user_name");
+				String firstname							= rs.getString("user_first_name");
+				String password 							= rs.getString("user_password");
+				String mail									= rs.getString("user_mail");
+				boolean isActive							= rs.getBoolean("user_active");
+				boolean isAdmin								= rs.getBoolean("user_admin");
+				Timestamp ts1 								= rs.getTimestamp("user_last_connection");
+				LocalDateTime lastConnectionDate			= ts1.toLocalDateTime();
+				DateTimeFormatter formatter2 				= DateTimeFormatter.ofPattern("dd/MM/yy");	
+				LocalDate creationDate						= LocalDate.parse(rs.getString("user_creation"), formatter2);
+				String status								= rs.getString("user_status");
+				String token								= rs.getString("user_token");
+				String login								= rs.getString("user_login");
+
+				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, token, login);
+
+				users.add(user);
+			}
+			System.out.println("liste users : "+ users);
+		}  catch (ClassNotFoundException e) {
+			System.out.println("problème de valeur");
+		} catch (SQLException e) {
+			System.out.println("Mauvaise connexion");
+		}
+		return users;
 	}
 	
 	
