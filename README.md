@@ -39,13 +39,13 @@ https://maven.apache.org/download.cgi
 - MDP root
 - Executer les requêtes suivantes :
 
-/\*CREATE SCHEMA\*/
+/*CREATE SCHEMA*/
 CREATE SCHEMA 5g;
 
-/\*USE SCHEMA\*/
+/*USE SCHEMA*/
 USE 5g;
 
-/\*CREATE TABLE USER\*/
+/*CREATE TABLE USER*/
 CREATE TABLE user (
      user_id INT NOT NULL AUTO_INCREMENT,
      user_name VARCHAR(30) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE user (
 ) ;
 
 
-/\*CREATE TABLE MESSAGE\*/
+/*CREATE TABLE MESSAGE*/
 CREATE TABLE `message` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `content` varchar(45) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 
-/\*INSERT DATAS USER\*/
+/*INSERT DATAS USER*/
 INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin,
 user_last_connection, user_creation, user_status, user_token) VALUES ('Dupont', 'Tom', 'tom@localhost.fr', 'tomDupont', '123', 1, 0, '2008-11-13 21:52:00', '08/11/18', 'En ligne', '123ABC');
 
@@ -92,7 +92,7 @@ user_last_connection, user_creation, user_status, user_token) VALUES ('Bertrand'
 
 
 
-/\*INSERT DATAS MESSAGE\*/
+/*INSERT DATAS MESSAGE*/
 Insert INTO 5g.message (content, id_author, id_discussion, created_at) VALUES
 ("contenu message 1", 1, 1, current_timestamp(3)),  
 ("contenu message 1", 1, 1, current_timestamp(3)),
