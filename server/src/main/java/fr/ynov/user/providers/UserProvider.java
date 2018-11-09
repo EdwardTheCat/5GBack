@@ -2,7 +2,6 @@ package fr.ynov.user.providers;
 
 import fr.ynov.db.DBConnection;
 import fr.ynov.user.ressources.User;
-import user.business.Users;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,8 +13,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import db_connection.DbAcces;
 
 
 /**
@@ -41,6 +38,7 @@ public class UserProvider {
     /**
      * Method which add a user in database
      * @param user
+     * @throws SQLException
      */
     public void createUser (User user) throws SQLException {
         String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -78,6 +76,8 @@ public class UserProvider {
      * Method which get a user's password from database by user's login
      * @param login
      * @return user (login, password)
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
 	public User getUserByLogin (String login) throws ClassNotFoundException, SQLException{
 		User user = null;
@@ -102,6 +102,55 @@ public class UserProvider {
 		}
 		return user;
 	}
+	
+    /**
+     * Method which get a user from database by user's id
+     * @param id
+     * @return user
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+	public User getUserById (int id) throws ClassNotFoundException, SQLException{
+
+		User user = null;
+		try {
+			String query = "SELECT * FROM 5g.user WHERE user_id = ? ";
+			if(conn==null) System.out.println("Connection null");
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String	name						= rs.getString("user_name");
+				String firstname 					= rs.getString("user_first_name");
+				String mail							= rs.getString("user_mail");
+				String login						= rs.getString("user_login");
+				String password						= rs.getString("user_password");
+				Boolean isActive					= rs.getBoolean("user_active");
+				Boolean isAdmin						= rs.getBoolean("user_admin");
+				Timestamp ts1 						= rs.getTimestamp("user_last_connection");
+				LocalDateTime lastConnectionDate	= ts1.toLocalDateTime();
+				DateTimeFormatter formatter2 		= DateTimeFormatter.ofPattern("dd/MM/yy");	
+				LocalDate creationDate				= LocalDate.parse(rs.getString("user_creation"), formatter2);
+				String status						= rs.getString("user_status");
+				String token						= rs.getString("user_token");
+
+				user = new User (id, name, firstname,mail,password, isActive,isAdmin, lastConnectionDate, creationDate,
+						status, token, login);
+				System.out.println(user);
+			}
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQL error : selectuserById");
+			System.out.println("SQLException: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("VendorError: " + e.getErrorCode());
+			e.printStackTrace();
+		}
+		System.out.println("getUserById : " + user);
+		return user;
+	}
+	
 	
     /**
      * Method which delete a user in database
@@ -156,9 +205,9 @@ public class UserProvider {
 				String login								= rs.getString("user_login");
 
 				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, token, login);
-
 				users.add(user);
 			}
+			stmt.close();
 			System.out.println("liste users : "+ users);
 		}  catch (ClassNotFoundException e) {
 			System.out.println("problème de valeur");
