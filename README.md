@@ -45,7 +45,7 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 
 ### Installation de l'IDE
 
-1. Download [IntelliJ IDEA 2018.2 Complete Edition - Windows](https://www.jetbrains.com/idea/download/index.html#section=windows).
+1. Download [IntelliJ IDEA 2018.2 Ultimate Edition - Windows](https://www.jetbrains.com/idea/download/index.html#section=windows).
 2. Run the ideaIc.exe or the ideaIU.exe
 3. Import IntelliJ IDEA settings
 4. Select the user interface theme
