@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Class that represents an ArrayList of Message
  *
- * @author edward
+ * @author Edward
  * @since v0
  */
 public class Messages extends ArrayList <Message> {

@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Class that represents a DataBase object
+ *
+ * @author Audrey and Edward
+ * @since v0
+ */
 public class DBConnection {
 
     public final static String jdbcDriver = "com.mysql.cj.jdbc.Driver";
@@ -29,8 +35,10 @@ public class DBConnection {
     public final static String password = "root";
 
     /**
-     * Method which returns a connection whether from instance property or from the constructor if null
-     * @return instance property : Connection
+     * Method which returns a connection whether from instance property or from the connection if null
+     * @return instance is java.sql.Connection
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
     public static Connection getConnection() throws SQLException,ClassNotFoundException {
         if(instance == null) {

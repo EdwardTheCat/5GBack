@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 /**
  * Class that represents a Message object
  *
- * @author edward
+ * @author Edward
  * @since v0
  */
 public class Message {
@@ -30,9 +30,9 @@ public class Message {
     private int idDiscussion;
     /**
      * Timestamp that represents the creation of the message
+     * Use a "dd/MM/YY - hh:mm:sssss" format
      */
     private Timestamp createdAt;
-    /*createdAt doit �tre au format "dd/MM/YY - hh:mm:sssss" */
 
     /**
      * Constructor

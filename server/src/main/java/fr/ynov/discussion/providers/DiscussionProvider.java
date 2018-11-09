@@ -14,17 +14,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Class in shape of DAO to extrat discussion informations from the database
+ * @author ludovic
+ * since v0
+ */
 public class DiscussionProvider {
 
+    /**
+     * Connection property
+     */
     private Connection connection;
+    /**
+     * Provider of user property
+     */
     private Users userProvider = new Users();
 
+    /**
+     * Constructor.
+     * Initialization Singleton of BDD Connection
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public DiscussionProvider() throws SQLException, ClassNotFoundException {
-        //TODO: Ajouter singleton connection BDD
         this.connection = DBConnection.getConnection();
     }
 
-    //addDiscussion()
+    /**
+     * Method which add a discussion from database
+     * @param name name of discussion
+     * @param users list of User in discussion
+     * @throws SQLException
+     */
     public int addDiscussion(String name, List<User> users) throws SQLException {
         User creator = new User();
         java.lang.String query = "%1$s,%2$s";
@@ -37,6 +59,11 @@ public class DiscussionProvider {
         return connection.createStatement().executeUpdate(query.format(query,name,creator.getMail(),usersJson.toString()));
     }
 
+    /**
+     * Method which find a discussion by name from database
+     * @param name name of discussion
+     * @throws SQLException
+     */
     public Discussion findDiscussionByName(String name) throws SQLException {
 
         List<User> users = new ArrayList<User>();
@@ -51,6 +78,11 @@ public class DiscussionProvider {
         return discussion;
     }
 
+    /**
+     * Method which find a discussion by user list from database
+     * @param json json String with User id list
+     * @throws SQLException
+     */
     public Discussion findDiscussionByUsers(String json) throws SQLException {
         java.lang.String query = "%1$s";
         List<User> users = new ArrayList<User>();

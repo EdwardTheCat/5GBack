@@ -9,16 +9,33 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Class in shape of DAO to extrat users informations from the database
+ * @author Audrey
+ * since v0
+ */
 public class UserProvider {
 
     private Connection conn;
 
+
+    /**
+     * Constructor.
+     * Initialization Singleton of BDD Connection
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public UserProvider() throws SQLException, ClassNotFoundException {
         this.conn = DBConnection.getConnection();
     }
 
+    /**
+     * Method which add a user from database
+     * @param user id discussion
+     */
     public void createUser (User user) throws SQLException {
-        String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -40,8 +57,7 @@ public class UserProvider {
         ps.setBoolean(8, user.isAdmin());
         ps.setString(9, formattedString1);
         ps.setString(10, formattedString2);
-        ps.setString(11, user.getStatus());
-        ps.setString(12, user.getToken());
+        ps.setString(11, user.getStatus());;
 
         ps.executeUpdate();
 

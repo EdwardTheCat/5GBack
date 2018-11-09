@@ -13,7 +13,7 @@ import fr.ynov.message.ressources.Messages;
 
 /**
  * Class in shape of DAO to extrat message informations from the database
- * @author edwar
+ * @author Edward
  * since v0
  */
 public class MessageProvider {
@@ -21,17 +21,23 @@ public class MessageProvider {
     /**
      * Connection property
      */
-    private Connection conn = null;
+    private Connection conn;
     /**
      * PreparedStatement property
      */
-    PreparedStatement ps = null;
+    PreparedStatement ps;
 
     /**
      * ResultSet property
      */
-    ResultSet rs = null;
+    ResultSet rs;
 
+    /**
+     * Constructor.
+     * Initialization Singleton of BDD Connection
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public MessageProvider() throws SQLException, ClassNotFoundException {
         this.conn = DBConnection.getConnection();
     }

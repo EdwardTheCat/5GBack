@@ -7,6 +7,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
 
 @RestController
+/**
+ * Class with page Services
+ *
+ * @author Edward
+ * since v0
+ */
 public class PageService {
     /**
      * method used to render view home from route "/"

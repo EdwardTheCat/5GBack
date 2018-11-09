@@ -16,11 +16,25 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
-public class DiscussionService {
 
+/**
+ * Class with discussion REST Services
+ * @author Ludovic
+ * since v0
+ */
+public class DiscussionService {
+    /**
+     * Provider of Discussion property
+     */
     DiscussionProvider discussionProvider;
 
-    @GetMapping("restapi/discussions/get-or-create")
+    /**
+     * Method which returns discussion in Json shape from dynamic route (/restapi/discussions/get-or-create)
+     * @param header header content
+     * @param body body content
+     * @return Response objects auto-transformed in json shape by dependency @see EnumResponse
+     */
+    @GetMapping("/restapi/discussions/get-or-create")
     public Response getOrCreatDiscussion(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> body) throws SQLException,ClassNotFoundException {
         //TODO: Verif token with header
 
