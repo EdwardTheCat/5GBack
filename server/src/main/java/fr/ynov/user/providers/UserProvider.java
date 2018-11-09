@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,8 +36,8 @@ public class UserProvider {
     }
 
     /**
-     * Method which add a user from database
-     * @param user id discussion
+     * Method which add a user in database
+     * @param user
      */
     public void createUser (User user) throws SQLException {
         String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -71,8 +72,8 @@ public class UserProvider {
     
     
     /**
-     * Method which get a user's password by user's login
-     * @param user id discussion
+     * Method which get a user's password from database by user's login
+     * @param login
      * @return user (login, password)
      */
 	public User getUserByLogin (String login) throws ClassNotFoundException, SQLException{
@@ -84,7 +85,7 @@ public class UserProvider {
 			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				String password 					= rs.getString("user_password");
+				String password = rs.getString("user_password");
 				user = new User (login, password);
 				System.out.println(user);
 			}
@@ -98,4 +99,30 @@ public class UserProvider {
 		}
 		return user;
 	}
+	
+    /**
+     * Method which delete a user in database
+     * @param user
+     */
+	public void deleteUser (User user){
+		
+		try {
+			int id = user.getId();
+
+			String sql = "DELETE FROM USER WHERE user_id =" + id;
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+
+		}  catch (ClassNotFoundException e) {
+			System.out.println("problème de valeur");
+
+		} catch (SQLException e) {
+			System.out.println("Mauvaise connexion");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 }
