@@ -4,10 +4,14 @@ import fr.ynov.db.DBConnection;
 import fr.ynov.user.ressources.User;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import db_connection.DbAcces;
 
 
 /**
@@ -46,7 +50,6 @@ public class UserProvider {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/YY");
         String formattedString2 = currentTime.format(formatter2);
 
-
         ps.setInt(1, user.getId());
         ps.setString(2, user.getName());
         ps.setString(3, user.getFirstname());
@@ -65,4 +68,34 @@ public class UserProvider {
 
         ps.close();
     }
+    
+    
+    /**
+     * Method which get a user's password by user's login
+     * @param user id discussion
+     * @return user (login, password)
+     */
+	public User getUserByLogin (String login) throws ClassNotFoundException, SQLException{
+		User user = null;
+		try {
+			String query = "SELECT * FROM 5g.user WHERE user_login = ? ";
+			if(conn==null) System.out.println("Connection null");
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, login);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String password 					= rs.getString("user_password");
+				user = new User (login, password);
+				System.out.println(user);
+			}
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error : selectuserByLogin");
+			System.out.println("SQLException: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("VendorError: " + e.getErrorCode());
+			e.printStackTrace();
+		}
+		return user;
+	}
 }
