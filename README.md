@@ -65,13 +65,13 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 1. From the Welcome screen, click Import Project.
    The Select File or Directory to Import dialog opens.
    
-![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_import.PNG)
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_Import.PNG)
 
 2. Follow the step, next.
 3. Select projet SDK - choose jdk 1.8
 4. Select import project from external model and then Maven
 
-![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_import_Project.PNG)
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_Import_Project.PNG)
 
 5. The right project will be set if you get this :
 
