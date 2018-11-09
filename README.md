@@ -58,27 +58,37 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 3. Write command:
 - `cd /C`
 - `git clone https://github.com/EdwardTheCat/5GBack`
+- `cd 5GBack`
 
 ### Import du projet sur IntelliJ (IDE)
 
 1. From the Welcome screen, click Import Project.
    The Select File or Directory to Import dialog opens.
+   
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_import.PNG)
 2. Follow the step, next.
 3. Select projet SDK - choose jdk 1.8
 4. Select import project from external model and then Maven
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_import_Project.PNG)
 5. The right project will be set if you get this :
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Import_Project_Completed.PNG)
 6. Click on Add Configuration
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Add_Config.PNG)
 7. Click on the "+" and then on Spring Boot :
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/add_config_spring.PNG)
 8. You have to get this page :
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/set_config.PNG)
 9. Click on "play" :
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/run_config.PNG)
 10. If you get this the project is all set :
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/completed_run.PNG)
 11. Go on your favorite navigator and write `localhost:8080/`
+
 ![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/see_project.PNG)
