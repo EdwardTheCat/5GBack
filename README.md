@@ -56,7 +56,6 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 1. Telecharger [Git](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/Git-2.19.1-64-bit.exe)
 2. Open Git Bash
 3. Write command:
-- `cd /C`
 - `git clone https://github.com/EdwardTheCat/5GBack`
 - `cd 5GBack`
 
