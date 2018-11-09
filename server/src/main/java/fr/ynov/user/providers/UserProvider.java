@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * Class in shape of DAO to extrat users informations from the database
+ * Class in shape of DAO to extract users informations from the database
  * @author Audrey
  * since v0
  */
