@@ -56,29 +56,46 @@ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_pas
 1. Telecharger [Git](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/Git-2.19.1-64-bit.exe)
 2. Open Git Bash
 3. Write command:
-- `cd /C`
 - `git clone https://github.com/EdwardTheCat/5GBack`
+- `cd 5GBack`
 
 ### Import du projet sur IntelliJ (IDE)
 
 1. From the Welcome screen, click Import Project.
    The Select File or Directory to Import dialog opens.
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Capture_import.png)
-2. Follow the step, next.
-3. Select projet SDK - choose jdk 1.8
-4. Select import project from external model and then Maven
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Capture_import_Project.png)
-5. The right project will be set if you get this :
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Import_Project_Completed.png)
-6. Click on Add Configuration
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/Add_Config.png)
-7. Click on the "+" and then on Spring Boot :
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/add_config_spring.png)
-8. You have to get this page :
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/set_config.png)
-9. Click on "play" :
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/run_config.png)
-10. If you get this the project is all set :
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/completed_run.png)
-11. Go on your favorite navigator and write `localhost:8080/`
-![Import_project](https://github.com/EdwardTheCat/5GBack/tree/master/image/see_project.png)
+   
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_Import.PNG)
+
+2. Follow the step, next..
+3. Select projet SDK - choose jdk 1.8.
+4. Select import project from external model and then Maven.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Capture_Import_Project.PNG)
+
+5. The right project will be set if you get this.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Import_Project_Completed.PNG)
+
+6. Click on Add Configuration.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/Add_Config.PNG)
+
+7. Click on the "+" and then on Spring Boot.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/add_config_spring.PNG)
+
+8. You have to get this page.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/set_config.PNG)
+
+9. Click on "play".
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/run_config.PNG)
+
+10. If you get this the project is all set.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/completed_run.PNG)
+
+11. Go on your favorite navigator and write `localhost:8080/`.
+
+![Import_project](https://github.com/EdwardTheCat/5GBack/blob/master/image/see_project.PNG)
