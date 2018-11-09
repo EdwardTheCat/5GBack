@@ -1,4 +1,4 @@
-package user.dao.util;
+package package fr.ynov.user.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
