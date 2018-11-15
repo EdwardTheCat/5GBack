@@ -31,10 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class MessageService{
-    
-	/**
-	 * Spring boot property for controller
-	 */
 	
 	/**
 	 * Method which returns messages in Json shape from dynamic route (/discussions/get-messages/{discussionId}/{messageNumber}

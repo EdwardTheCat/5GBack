@@ -46,7 +46,7 @@ public class DBConnection {
 	 */
 	private DBConnection() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.instance = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not found : createMessage ");

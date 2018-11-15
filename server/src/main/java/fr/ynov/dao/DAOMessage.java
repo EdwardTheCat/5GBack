@@ -45,6 +45,8 @@ public class DAOMessage {
 	 */
 	public void createMessage (Message message) throws SQLException {
 
+		if(conn==null) this.conn = DBConnection.getInstance();
+		
 		try {
 
 			String query = "INSERT INTO message (content, id_author, id_discussion, created_at) VALUES (?,?,?,?)";
@@ -126,7 +128,8 @@ public class DAOMessage {
 
 			String query = "SELECT * FROM message WHERE message.id_discussion = ? LIMIT " + nombre;
 
-			if(conn==null) System.out.println("Connection null");
+			if(conn==null) this.conn = DBConnection.getInstance();
+			if(conn==null) System.out.println("connexion null");
 			PreparedStatement ps = conn.prepareStatement(query);	
 
 			ps.setInt(1, Discussion);
