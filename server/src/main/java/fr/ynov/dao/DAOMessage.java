@@ -2,20 +2,17 @@ package fr.ynov.dao;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
 import fr.ynov.db.DBConnection;
-import fr.ynov.db_connection.DbAcces;
 import fr.ynov.message.Message;
-import fr.ynov.message.MessageTest;
+
 import fr.ynov.message.Messages;
-import fr.ynov.message.MessagesTest;
+
 
 /**
  * Class in shaped of DAO to extrat message informations from the database
@@ -37,7 +34,10 @@ public class DAOMessage {
 	 * ResultSet property
 	 */
 	ResultSet rs = null;
-
+	
+	public DAOMessage() {
+		this.conn = DBConnection.getInstance();
+	}
 	/**
 	 * Method which create a row in message table that represents a message
 	 * @param message
@@ -46,9 +46,6 @@ public class DAOMessage {
 	public void createMessage (Message message) throws SQLException {
 
 		try {
-
-
-			Connection conn = DBConnection.getInstance();
 
 			String query = "INSERT INTO message (content, id_author, id_discussion, created_at) VALUES (?,?,?,?)";
 
@@ -73,11 +70,6 @@ public class DAOMessage {
 					ps.close();
 				} catch (SQLException e) { e.printStackTrace();}
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) { e.printStackTrace();}
-			}
 		}
 	}
 
@@ -91,7 +83,6 @@ public class DAOMessage {
 		int id = message.getIdMessage();
 		
 		try {
-			Connection conn = DBConnection.getInstance();
 
 			String query = "DELETE FROM message WHERE id =" + id;
 
@@ -118,11 +109,6 @@ public class DAOMessage {
 					ps.close();
 				} catch (SQLException e) { e.printStackTrace();}
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) { e.printStackTrace();}
-			}
 		}
 	}
 
@@ -137,7 +123,6 @@ public class DAOMessage {
 		Messages messages = new Messages();
 
 		try {
-			Connection conn = DBConnection.getInstance();	
 
 			String query = "SELECT * FROM message WHERE message.id_discussion = ? LIMIT " + nombre;
 
@@ -182,15 +167,17 @@ public class DAOMessage {
 					ps.close();
 				} catch (SQLException e) { /* ignoré */}
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) { /* ignoré */}
-			}
 		}
 
 		return messages;
 
+	}
+	public void close() {
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) { /* ignoré */}
+		}
 	}
 
 
