@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import user.business.User;
 
 /**
- * Class that represents an ArrayList of User
+ * Class that represents an ArrayList of DirWord
  *
  * @author Audrey
  * @since v0
  */
-public class Users extends ArrayList <User>  {
-
+public class DirWords extends ArrayList <DirWord> {
 
 }
