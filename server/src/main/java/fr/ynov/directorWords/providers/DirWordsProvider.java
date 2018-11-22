@@ -1,8 +1,7 @@
 package fr.ynov.directorWords.providers;
 
 import fr.ynov.db.DBConnection;
-import fr.ynov.directorWords.ressources.dirWord;
-import fr.ynov.directorWords.ressources.dirWords;
+import fr.ynov.directorWords.ressources.DirWord;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,8 +13,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import director.business.DirWord;
 
 
 /**
@@ -30,10 +27,11 @@ public class DirWordsProvider {
 	/**
 	 * Constructor.
 	 * Initialization Singleton of BDD Connection
+	 * @return 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public UserProvider() throws SQLException, ClassNotFoundException {
+	public void UserProvider() throws SQLException, ClassNotFoundException {
 		this.conn = DBConnection.getConnection();
 	}
 
