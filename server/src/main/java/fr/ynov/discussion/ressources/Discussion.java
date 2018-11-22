@@ -1,9 +1,14 @@
 package fr.ynov.discussion.ressources;
 
+import fr.ynov.message.Message;
+import fr.ynov.message.providers.MessageProvider;
+import fr.ynov.message.ressources.Message;
+import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.User;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +25,7 @@ public class Discussion {
     /**
      * id of Discussion
      */
-    private String id;
+    private int id;
     /**
      * label of Discussion
      */
@@ -32,153 +37,93 @@ public class Discussion {
     /**
      * user list of Discussion
      */
-    private  Map<Integer, User> users = new HashMap<Integer, User>();
+    private  List<Integer> users = new ArrayList<Integer>();
 
     /**
-     * Constructor
-     * @param id of discussion
-     * @param label of discussion
-     * @param creator User of discussion
+     * last Messages of Discussion
      */
-    public Discussion(String id, String label, User creator) {
+    private List<Message> lastMessages = new ArrayList<Message>();
+
+
+    private MessageProvider messageProvider;
+    private UserProvider userProvider;
+
+    public Discussion(String label, List<Integer> users) {
+        this.label = label;
+        this.creator = creator;
+        this.users = users;
+    }
+
+    public Discussion(int id, String label, User creator, List<Integer> users) throws Exception {
         this.id = id;
         this.label = label;
         this.creator = creator;
+        this.users = users;
+        messageProvider = new MessageProvider();
+        this.lastMessages = messageProvider.getMessagesFromIdDisccusion(id,30);
     }
 
-    /**
-     * Constructor
-     * @param id of discussion
-     * @param label of discussion
-     */
-    public Discussion(String id, String label) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.label = label;
     }
 
-    /**
-     * Constructor
-     * @param id of discussion
-     * @param creator User of discussion
-     */
-    public Discussion(String id, User creator) {
-        this.id = id;
-        this.creator = creator;
-    }
-
-    /**
-     * Constructor
-     * @param id of discussion
-     * @param creator User of discussion
-     * @param users User list of discussion
-     */
-    public Discussion(String id, User creator, List<User> users) {
-        this.id = id;
-        this.creator = creator;
-        for (User user : users){
-            this.users.put(user.getId(),user);
-        }
-    }
-
-    /**
-     * Constructor
-     * @param id of discussion
-     * @param label of discussion
-     * @param creator User of discussion
-     * @param users User list of discussion
-     */
-    public Discussion(String id, String label, User creator, List<User> users) {
-        this.id = id;
-        this.label = label;
-        this.creator = creator;
-        for (User user : users){
-            this.users.put(user.getId(),user);
-        }
-    }
-
-    /**
-     * Getter for label property
-     * @return label
-     */
-    @XmlElement(name="label")
     public String getLabel() {
         return label;
     }
 
-    /**
-     * Setter for label property
-     * @param label
-     */
     public void setLabel(String label) {
         this.label = label;
     }
 
-    /**
-     * Getter for id property
-     * @return id
-     */
-    @XmlElement(name="id")
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Setter for label property
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Getter for creator property
-     * @return creator
-     */
-    @XmlElement(name="creator")
     public User getCreator() {
         return creator;
     }
 
-    /**
-     * Setter for label property
-     * @param creator
-     */
     public void setCreator(User creator) {
         this.creator = creator;
     }
 
-    /**
-     * Getter for user list property
-     * @return user list
-     */
-    @XmlElement(name="users")
-    public List<User> getUsers() {
-        return new ArrayList<User>(users.values());
+    public List<Integer> getUsers() {
+        return users;
     }
+
+    public void setUsers(List<Integer> users) {
+        this.users = users;
+    }
+
+    public List<Message> getLastMessages() {
+        return lastMessages;
+    }
+
+    public void setLastMessages(List<Message> lastMessages) {
+        this.lastMessages = lastMessages;
+    }
+
 
     /**
      * Method which add user in discussion
-     * @param user
+     * @param userId
      */
-    public void addUser(User user){
-        //TODO: Verifier si le membre existe
-        if(users.containsKey(user.getId())){
-
-        } else {
-            users.put(user.getId(), user);
+    public int addUser(int userId)throws Exception{
+        userProvider = new UserProvider();
+        if(!users.contains(userId)){
+            users.add(userId);
         }
+        return users.size();
     }
 
     /**
      * Method which delete user in discussion
-     * @param user
+     * @param userId
      */
-    public void leaveUser(User user){
-        //TODO: Verifier si le membre existe
-        if(users.containsKey(user.getId())){
-
-        } else {
-            users.remove(user.getId());
+    public int leaveUser(int userId) {
+        if (!users.contains(userId)) {
+            users.remove(userId);
         }
+        return users.size();
     }
 }
