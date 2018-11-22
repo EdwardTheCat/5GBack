@@ -1,8 +1,7 @@
-package fr.ynov.user.ressources;
+package fr.ynov.directorWords.ressources;
 
 import java.util.ArrayList;
 
-import user.business.User;
 
 /**
  * Class that represents an ArrayList of DirWord
