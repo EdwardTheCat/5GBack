@@ -1,6 +1,7 @@
 package fr.ynov.discussion.providers;
 
 import fr.ynov.db.DBConnection;
+import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.Users;
 import org.json.*;
 
@@ -29,7 +30,8 @@ public class DiscussionProvider {
     /**
      * Provider of user property
      */
-    private Users userProvider = new Users();
+    private UserProvider userProvider = new UserProvider();
+    private Discussion discussion;
 
     /**
      * Constructor.
@@ -43,56 +45,86 @@ public class DiscussionProvider {
 
     /**
      * Method which add a discussion from database
-     * @param name name of discussion
-     * @param users list of User in discussion
+     * @param discussion discussion entity
      * @throws SQLException
      */
-    public int addDiscussion(String name, List<User> users) throws SQLException {
-        User creator = new User();
+
+    public Discussion addDiscussion(Discussion discussion) throws Exception {
         java.lang.String query = "%1$s,%2$s";
-        JSONArray usersJson = new JSONArray();
-        for (User user:users ){
-            JSONObject userJson = new JSONObject();
-            userJson.put("id" , user.getMail());
-            usersJson.put(userJson);
+        JSONArray usersJson = new JSONArray(discussion.getUsers());
+        connection.createStatement().executeUpdate(query.format(query,discussion.getLabel(),discussion.getCreator(),usersJson.toString()));
+        if (discussion.getLabel() == null){
+            return findDiscussionByUsers(discussion.getUsers());
+        } else {
+            return findDiscussionByName(discussion.getLabel());
         }
-        return connection.createStatement().executeUpdate(query.format(query,name,creator.getMail(),usersJson.toString()));
     }
 
     /**
      * Method which find a discussion by name from database
      * @param name name of discussion
-     * @throws SQLException
+     * @throws Exception
      */
-    public Discussion findDiscussionByName(String name) throws SQLException {
-
-        List<User> users = new ArrayList<User>();
+    public Discussion findDiscussionByName(String name) throws Exception {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query,name));
-        JSONArray usersJson = new JSONArray(result.getString("discussion_users"));
-        for (int i=0; i < usersJson.length(); i++) {
-            JSONObject user = usersJson.getJSONObject(i);
-            users.add(userProvider.getUserById( user.getInt("user_id") ) );
+        if (result.first()) {
+            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConverToList(result.getString("discussion_users")));
         }
-        Discussion discussion = new Discussion(result.getString("discussion_id"),result.getString("discussion_name"),userProvider.findUserById(result.getInt("discussion_creator")),users);
-        return discussion;
+        return null;
     }
 
     /**
      * Method which find a discussion by user list from database
-     * @param json json String with User id list
+     * @param usersId User id list
      * @throws SQLException
      */
-    public Discussion findDiscussionByUsers(String json) throws SQLException {
+    public Discussion findDiscussionByUsers(List<Integer> usersId) throws Exception {
         java.lang.String query = "%1$s";
-        List<User> users = new ArrayList<User>();
-        ResultSet result = connection.createStatement().executeQuery(query.format(query, json));
-        JSONArray usersJson = new JSONArray(json);
-        for (int i=0; i < usersJson.length(); i++) {
-            JSONObject user = usersJson.getJSONObject(i);
-            users.add(userProvider.findUserById(user.getInt("user_id")));
+        JSONArray usersJson = new JSONArray(usersId);
+        ResultSet result = connection.createStatement().executeQuery(query.format(query, usersJson.toString()));
+        if (result.first()) {
+             return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId);
         }
-        Discussion discussion = new Discussion(result.getString("discussion_id"),result.getString("discussion_name"),userProvider.findUserById(result.getInt("discussion_creator")),users );
-        return discussion;
+        return null;
+    }
+
+    public Discussion findDiscussionById(int id) throws Exception {
+        java.lang.String query = "%1$s";
+        ResultSet result = connection.createStatement().executeQuery(query.format(query, id));
+        if (result.first()){
+            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConverToList(result.getString("discussion_users")));
+        }
+        return null;
+    }
+
+
+    public List<Integer> updateDiscussion(Discussion discussion)throws SQLException{
+        java.lang.String query = "%1$s";
+        ResultSet result = connection.createStatement().executeQuery(query.format(query, discussion.getId()));
+        if (result.first()){
+            JSONArray usersJson = new JSONArray();
+            for (int user: discussion.getUsers()) {
+                usersJson.put(user);
+            }
+            connection.createStatement().executeUpdate(query.format(query,discussion.getId(),usersJson.toString()));
+            return discussion.getUsers();
+        }
+        return null;
+    }
+
+    public void deleteDiscussion(int id)throws SQLException{
+        java.lang.String query = "%1$s";
+         connection.createStatement().executeUpdate(query.format(query, id));
+    }
+
+    private List<Integer> ConverToList(String userJson) throws Exception {
+        List<Integer> list = new ArrayList<Integer>();
+        JSONArray usersJson = new JSONArray(userJson);
+        for (int i = 0; i < usersJson.length(); i++) {
+            JSONObject user = usersJson.getJSONObject(i);
+            list.add(user.getInt("user_id"));
+        }
+        return list;
     }
 }
