@@ -28,10 +28,13 @@ public class DirWord {
 	 * @param sentence of DirWord
 	 * @param postDate of DirWord
 	 */
-	public DirWord (int id, String sentence, LocalDate postDate) {
+	private int userId;
+	
+	public DirWord (int id, String sentence, LocalDate postDate, int userId) {
 		this.id = id;
 		this.sentence = sentence;
 		this.postDate = postDate;
+		this.setUserId(userId);
 	}
 
 
@@ -78,12 +81,27 @@ public class DirWord {
 		this.postDate = postDate;
 	}
 
+	/**
+	 * Getter for userId property
+	 * @return userId
+	 */
+	public int getUserId() {
+		return userId;
+	}
+
+    /**
+     * Setter for userId property
+     * @param userId
+     */
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 
 	@Override
 	public String toString() {
-		return "DirWord [id=" + id + ", sentence=" + sentence + ", postDate=" + postDate + "]";
+		return "DirWord [id=" + id + ", sentence=" + sentence + ", postDate=" + postDate + ", userId=" + userId + "]";
 	}
-
 
 }
 
