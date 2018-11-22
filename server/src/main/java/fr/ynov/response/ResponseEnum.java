@@ -24,6 +24,7 @@ public enum ResponseEnum {
     discussionList("discussion","T0011","Liste des discussions auxquelles vous prenez part"),
     messageAdded("discussion", "T0012","Message enregistrÃ© avec succÃ¨s"),
     messagesRetrieved("discussion","T0012","Récupération des messages d'une discussion"),
+    messagePost("discussion","T0013","Message enregistré avec succès"),
     /**
      * error value of Response
      */

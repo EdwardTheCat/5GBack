@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 
-@JsonRootName(value = "Response")
+
 /**
  * Class that represents a Response object
  *
  * @author Ludovic
  * @since v0
  */
+@JsonRootName(value = "response")
 public class Response {
     /**
      * type of Response
