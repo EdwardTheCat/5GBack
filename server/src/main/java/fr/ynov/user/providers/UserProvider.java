@@ -2,6 +2,7 @@ package fr.ynov.user.providers;
 
 import fr.ynov.db.DBConnection;
 import fr.ynov.user.ressources.User;
+import fr.ynov.user.ressources.Users;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -89,7 +90,13 @@ public class UserProvider {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String password = rs.getString("user_password");
-				user = new User (login, password);
+				
+				user = new User ( 	rs.getInt("user_id"), 
+									rs.getString("user_name"), 
+									rs.getString("user_first_name"), 
+									rs.getString("user_mail"), 
+									rs.getString("user_password"),
+									LocalDate.parse(rs.getString("user_creation_date")) ); 
 				System.out.println(user);
 			}
 			ps.close();
@@ -134,8 +141,18 @@ public class UserProvider {
 				String status						= rs.getString("user_status");
 				String token						= rs.getString("user_token");
 
-				user = new User (id, name, firstname,mail,password, isActive,isAdmin, lastConnectionDate, creationDate,
-						status, token, login);
+				user = new User (	id, 
+									name, 
+									firstname,
+									mail,
+									password,
+									isActive,
+									isAdmin,
+									lastConnectionDate,
+									creationDate,
+									status,
+									token,
+									login);
 				System.out.println(user);
 			}
 			ps.close();
@@ -166,10 +183,7 @@ public class UserProvider {
 			stmt.executeUpdate(sql);
 			stmt.close();
 
-		}  catch (ClassNotFoundException e) {
-			System.out.println("problème de valeur");
-
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
 		}
@@ -209,8 +223,6 @@ public class UserProvider {
 			}
 			stmt.close();
 			System.out.println("liste users : "+ users);
-		}  catch (ClassNotFoundException e) {
-			System.out.println("problème de valeur");
 		} catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
 		}

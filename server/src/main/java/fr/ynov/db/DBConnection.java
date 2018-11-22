@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import fr.ynov.db.DBConnection;
+
 /**
- * Class that represents a DataBase object
+ * Class in shape of Singleton to manage a connection to the MySql database
  *
  * @author Audrey and Edward
  * @since v0
@@ -16,7 +18,7 @@ public class DBConnection {
     /**
      * Instance property : Connection
      */
-    private static Connection instance;
+	private static Connection instance;
 
     /**
      * Url property : String, (parameters added for Timezone issues between driver and server database)
@@ -40,11 +42,34 @@ public class DBConnection {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static Connection getConnection() throws SQLException,ClassNotFoundException {
-        if(instance == null) {
-            Class.forName(DBConnection.jdbcDriver);
-            instance = DriverManager.getConnection(url, user, password);
-        }
+    public static Connection getConnection(){
+        try {
+	    	if(DBConnection.instance == null) {
+	            Class.forName(DBConnection.jdbcDriver);
+	            DBConnection.instance = DriverManager.getConnection(url, user, password);
+	        }
+	    } catch (ClassNotFoundException e) {
+			System.out.println("=== AccesBdD : class not found");
+			e.printStackTrace();
+		} 
+        catch (SQLException e) {
+			System.out.println("=== AccesBdD : Probleme close connection");
+			e.printStackTrace();
+		}
         return instance;
     }
+	/**
+	 * Method which close the connection
+	 * 
+	 */
+	//todo throw an exception
+	public void close() throws SQLException {
+		try {
+			if (!DBConnection.instance.isClosed()) DBConnection.instance.close();
+		} catch (SQLException e) {
+			System.out.println("=== AccesBdD : Probleme close connection");
+			e.printStackTrace();
+		}
+	}
 }
+

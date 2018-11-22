@@ -1,7 +1,11 @@
 package fr.ynov.message.services;
 
+import fr.ynov.message.ressources.Messages;
 import fr.ynov.message.providers.MessageProvider;
 import fr.ynov.message.ressources.Message;
+import fr.ynov.response.Response;
+import fr.ynov.response.ResponseEnum;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +31,18 @@ public class MessageService {
      * Method which returns messages in Json shape from dynamic route (/discussions/get-messages/{discussionId}}
      * It retrieves the messages or message object(s) from the DAO object
      * @param discussionId discussion
-     * @param messageNumber of messages to return
+     * @param number of messages to return
      * @return messages objects auto-transformed in json shape by dependency @see pom.xml
      */
-    @GetMapping(value = "/restapi/discussions/get-messages/{discussionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Message> getMessages(@PathVariable int discussionId , @RequestParam(value = "number", required = false) Integer messageNumber )throws SQLException,ClassNotFoundException {
-        message = new MessageProvider();
-        if (messageNumber == null){
-            return message.getMessagesFromIdDisccusion(discussionId);
-        }else{
-            return message.getMessagesFromIdDisccusion(discussionId, messageNumber);
-        }
-    }
+    @GetMapping( path="restapi/discussions/get-messages/{discussionId}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Response getMessages(@PathVariable int discussionId , @RequestParam (value= "number", defaultValue = "2") int number ) {
+		
+    	message = new MessageProvider();
+		Messages messages = message.getMessagesFromIdDisccusion(discussionId, number);
+		
+		Response response = new Response(ResponseEnum.messagesRetrieved.getType(),ResponseEnum.messagesRetrieved.getCode(), ResponseEnum.messagesRetrieved.getDescription());
+		response.setPayload(messages);
+		
+		return response;  
+	}      
 }

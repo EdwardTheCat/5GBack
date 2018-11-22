@@ -56,7 +56,10 @@ public class User {
      * login of User
      */
     private String login;
-
+    /**
+     * token of User
+     */
+    private String token;
     /**
      * Constructor.
      */
@@ -75,9 +78,10 @@ public class User {
      * @param creationDate of User
      * @param status of User
      * @param login of User
+     * @param token of User
      */
     public User (int id, String name, String firstname, String mail, String password, boolean isActive, boolean isAdmin,
-                 LocalDateTime lastConnectionDate, LocalDate creationDate, String status, String login) {
+                 LocalDateTime lastConnectionDate, LocalDate creationDate, String status, String login, String token) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -88,7 +92,9 @@ public class User {
         this.lastConnectionDate = lastConnectionDate;
         this.creationDate = creationDate;
         this.status = status;
+        this.token = token;
         this.login = login;
+        
     }
 
     /**

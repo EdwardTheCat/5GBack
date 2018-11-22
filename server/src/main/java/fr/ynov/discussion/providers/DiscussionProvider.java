@@ -72,7 +72,7 @@ public class DiscussionProvider {
         JSONArray usersJson = new JSONArray(result.getString("discussion_users"));
         for (int i=0; i < usersJson.length(); i++) {
             JSONObject user = usersJson.getJSONObject(i);
-            users.add(userProvider.findUserById(user.getInt("user_id")));
+            users.add(userProvider.getUserById( user.getInt("user_id") ) );
         }
         Discussion discussion = new Discussion(result.getString("discussion_id"),result.getString("discussion_name"),userProvider.findUserById(result.getInt("discussion_creator")),users);
         return discussion;

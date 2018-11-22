@@ -1,9 +1,11 @@
 package fr.ynov.response;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-@XmlRootElement
+
+@JsonRootName(value = "Response")
 /**
  * Class that represents a Response object
  *
@@ -14,18 +16,23 @@ public class Response {
     /**
      * type of Response
      */
+	@JsonProperty("type")
     private String type;
     /**
      * code of Response
      */
+	@JsonProperty("code")
     private String code;
     /**
      * description of Response
      */
+	@JsonProperty("desc")
     private String desc;
     /**
      * payload of Response
-     */
+     * */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("payload")
     private Object payload;
 
     /**
@@ -59,7 +66,6 @@ public class Response {
      * Getter for type property
      * @return type
      */
-    @XmlElement(name="type")
     public String getType() {
         return type;
     }
@@ -76,7 +82,6 @@ public class Response {
      * Getter for code property
      * @return code
      */
-    @XmlElement(name="code")
     public String getCode() {
         return code;
     }
@@ -93,7 +98,6 @@ public class Response {
      * Getter for description property
      * @return description
      */
-    @XmlElement(name="description")
     public String getDesc() {
         return desc;
     }
@@ -110,7 +114,6 @@ public class Response {
      * Getter for payload property
      * @return payload
      */
-    @XmlElement(name="payload", nillable = true)
     public Object getPayload() {
         return payload;
     }
@@ -123,3 +126,4 @@ public class Response {
         this.payload = payload;
     }
 }
+

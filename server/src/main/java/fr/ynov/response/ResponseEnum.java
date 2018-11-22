@@ -1,3 +1,4 @@
+
 package fr.ynov.response;
 /**
  * Enum that represents a any Response value
@@ -22,6 +23,7 @@ public enum ResponseEnum {
     discussionLeft("discussion","T0010","Vous avez quitt√© la conversation"),
     discussionList("discussion","T0011","Liste des discussions auxquelles vous prenez part"),
     messageAdded("discussion", "T0012","Message enregistr√© avec succ√®s"),
+    messagesRetrieved("discussion","T0012","RÈcupÈration des messages d'une discussion"),
     /**
      * error value of Response
      */
@@ -83,5 +85,4 @@ public enum ResponseEnum {
     public String getDescription() {
         return description;
     }
-
 }
