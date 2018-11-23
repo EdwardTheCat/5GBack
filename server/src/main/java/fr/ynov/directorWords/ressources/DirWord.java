@@ -1,6 +1,7 @@
 package fr.ynov.directorWords.ressources;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Class that represents a DirectorWord object
@@ -21,7 +22,7 @@ public class DirWord {
 	/**
 	 * date when the sentence is posted
 	 */
-	private LocalDate postDate;
+	private LocalDateTime postDate;
 	/**
 	 * Constructor.
 	 * @param id of DirWord
@@ -30,11 +31,11 @@ public class DirWord {
 	 */
 	private int userId;
 	
-	public DirWord (int id, String sentence, LocalDate postDate, int userId) {
+	public DirWord (int id, String sentence, LocalDateTime postDate, int userId) {
 		this.id = id;
 		this.sentence = sentence;
 		this.postDate = postDate;
-		this.setUserId(userId);
+		this.userId = userId;
 	}
 
 
@@ -70,14 +71,14 @@ public class DirWord {
 	 * Getter for postDate property
 	 * @return postDate
 	 */
-	public LocalDate getPostDate() {
+	public LocalDateTime getPostDate() {
 		return postDate;
 	}
     /**
      * Setter for postDate property
      * @param postDate
      */
-	public void setPostDate(LocalDate postDate) {
+	public void setPostDate(LocalDateTime postDate) {
 		this.postDate = postDate;
 	}
 
