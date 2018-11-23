@@ -53,11 +53,11 @@ public class DiscussionProvider {
     public Discussion addDiscussion(Discussion discussion) throws Exception {
         java.lang.String query = "%1$s,%2$s";
         JSONArray usersJson = new JSONArray(discussion.getUsers());
-        connection.createStatement().executeUpdate(query.format(query,discussion.getLabel(),discussion.getCreator(),usersJson.toString()));
-        if (discussion.getLabel() == null){
-            return findDiscussionByUsers(discussion.getUsers());
+        int result = connection.createStatement().executeUpdate(query.format(query,discussion.getLabel(),discussion.getCreator(),usersJson.toString()));
+        if (result == 0){
+            return null;
         } else {
-            return findDiscussionByName(discussion.getLabel());
+            return discussion;
         }
     }
 
@@ -70,7 +70,7 @@ public class DiscussionProvider {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query,name));
         if (result.first()) {
-            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConverToList(result.getString("discussion_users")));
+            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")));
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class DiscussionProvider {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query, id));
         if (result.first()){
-            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConverToList(result.getString("discussion_users")));
+            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")));
         }
         return null;
     }
@@ -102,24 +102,24 @@ public class DiscussionProvider {
 
     public List<Integer> updateDiscussion(Discussion discussion)throws SQLException{
         java.lang.String query = "%1$s";
-        ResultSet result = connection.createStatement().executeQuery(query.format(query, discussion.getId()));
-        if (result.first()){
-            JSONArray usersJson = new JSONArray();
-            for (int user: discussion.getUsers()) {
+        JSONArray usersJson = new JSONArray();
+        for (int user: discussion.getUsers()) {
                 usersJson.put(user);
-            }
-            connection.createStatement().executeUpdate(query.format(query,discussion.getId(),usersJson.toString()));
+        }
+        int result = connection.createStatement().executeUpdate(query.format(query,discussion.getId(),usersJson.toString()));
+        if (result == 0) {
+            return null;
+        } else {
             return discussion.getUsers();
         }
-        return null;
     }
 
-    public void deleteDiscussion(int id)throws SQLException{
+    public int deleteDiscussion(int id)throws SQLException{
         java.lang.String query = "%1$s";
-         connection.createStatement().executeUpdate(query.format(query, id));
+        return connection.createStatement().executeUpdate(query.format(query, id));
     }
 
-    private List<Integer> ConverToList(String userJson) throws Exception {
+    private List<Integer> ConvertToList(String userJson) throws Exception {
         List<Integer> list = new ArrayList<Integer>();
         JSONArray usersJson = new JSONArray(userJson);
         for (int i = 0; i < usersJson.length(); i++) {
