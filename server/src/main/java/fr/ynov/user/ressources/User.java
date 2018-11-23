@@ -115,6 +115,10 @@ public class User {
         this.creationDate = creationDate;
     }
 
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     /**
      * Getter for id property
