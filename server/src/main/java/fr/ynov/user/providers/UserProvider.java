@@ -228,7 +228,40 @@ public class UserProvider {
 		}
 		return users;
 	}
-	
-	
-	
+
+	public Users selectAllConnectedUsers(){
+
+		Users users = new Users();
+
+		try {
+			String sql = ("select * from 5g.user");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				int id 										= rs.getInt("user_id");
+				String name 								= rs.getString("user_name");
+				String firstname							= rs.getString("user_first_name");
+				String password 							= rs.getString("user_password");
+				String mail									= rs.getString("user_mail");
+				boolean isActive							= rs.getBoolean("user_active");
+				boolean isAdmin								= rs.getBoolean("user_admin");
+				Timestamp ts1 								= rs.getTimestamp("user_last_connection");
+				LocalDateTime lastConnectionDate			= ts1.toLocalDateTime();
+				DateTimeFormatter formatter2 				= DateTimeFormatter.ofPattern("dd/MM/yy");
+				LocalDate creationDate						= LocalDate.parse(rs.getString("user_creation"), formatter2);
+				String status								= rs.getString("user_status");
+				String token								= rs.getString("user_token");
+				String login								= rs.getString("user_login");
+
+				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, token, login);
+				users.add(user);
+			}
+			stmt.close();
+			System.out.println("liste users : "+ users);
+		} catch (SQLException e) {
+			System.out.println("Mauvaise connexion");
+		}
+		return users;
+	}
 }
