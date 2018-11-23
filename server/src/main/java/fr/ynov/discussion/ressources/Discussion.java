@@ -2,6 +2,7 @@ package fr.ynov.discussion.ressources;
 
 import fr.ynov.message.ressources.Message;
 import fr.ynov.message.providers.MessageProvider;
+import fr.ynov.message.ressources.Messages;
 import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.User;
 
@@ -41,7 +42,7 @@ public class Discussion {
     /**
      * last Messages of Discussion
      */
-    private List<Message> lastMessages = new ArrayList<Message>();
+    private Messages lastMessages = new Messages();
 
 
     private MessageProvider messageProvider;
@@ -94,11 +95,11 @@ public class Discussion {
         this.users = users;
     }
 
-    public List<Message> getLastMessages() {
+    public Messages getLastMessages() {
         return lastMessages;
     }
 
-    public void setLastMessages(List<Message> lastMessages) {
+    public void setLastMessages(Messages lastMessages) {
         this.lastMessages = lastMessages;
     }
 
