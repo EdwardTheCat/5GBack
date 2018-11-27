@@ -22,11 +22,11 @@ public class DirWordsService {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateDirWord(@RequestBody String json)throws Exception{
+    public void addDirWord(@RequestBody String json)throws Exception{
         JSONObject jsonObject = new JSONObject(json);
         dirWordsProvider = new DirWordsProvider();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YY - hh:mm");
         DirWord dirWord = new DirWord(jsonObject.getInt("id"),jsonObject.getString("sentence"), LocalDateTime.parse(jsonObject.getString("postDate"),formatter),jsonObject.getInt("userId"));
-        dirWordsProvider.updateDirWord(dirWord);
+        dirWordsProvider.createDirWord(dirWord);
     }
 }
