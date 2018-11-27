@@ -2,6 +2,7 @@
 package fr.ynov.discussion.providers;
 
 import fr.ynov.db.DBConnection;
+import fr.ynov.message.providers.MessageProvider;
 import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.Users;
 import org.json.*;
@@ -31,7 +32,8 @@ public class DiscussionProvider {
     /**
      * Provider of user property
      */
-    private UserProvider userProvider = new UserProvider();
+    private UserProvider userProvider;
+    private MessageProvider messageProvider;
     private Discussion discussion;
 
     /**
@@ -42,6 +44,14 @@ public class DiscussionProvider {
      */
     public DiscussionProvider() throws SQLException, ClassNotFoundException {
         this.connection = DBConnection.getConnection();
+        userProvider = new UserProvider(this.connection);
+        messageProvider = new MessageProvider(this.connection);
+    }
+
+    public DiscussionProvider(Connection connection) throws SQLException, ClassNotFoundException {
+        this.connection = connection;
+        userProvider = new UserProvider(connection);
+        messageProvider = new MessageProvider(connection);
     }
 
     /**
@@ -70,7 +80,7 @@ public class DiscussionProvider {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query,name));
         if (result.first()) {
-            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")));
+            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
         }
         return null;
     }
@@ -85,7 +95,7 @@ public class DiscussionProvider {
         JSONArray usersJson = new JSONArray(usersId);
         ResultSet result = connection.createStatement().executeQuery(query.format(query, usersJson.toString()));
         if (result.first()) {
-             return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId);
+             return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId,messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
         }
         return null;
     }
@@ -94,7 +104,7 @@ public class DiscussionProvider {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query, id));
         if (result.first()){
-            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")));
+            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
         }
         return null;
     }
