@@ -44,13 +44,18 @@ public class MessageProvider {
         this.conn = DBConnection.getConnection();
     }
 
+    public MessageProvider(Connection conn) {
+        this.conn = conn;
+    }
+
     /**
      * Method which create a row in message table that represents a message
      * @param message
      * @throws SQLException
      */
-    public int saveMessage (Message message) 
-    { int res = 0;
+    public int saveMessage (Message message) {
+
+        int res = 0;
 
     	if(conn == null) DBConnection.getConnection();
     	
@@ -85,9 +90,9 @@ public class MessageProvider {
      * Method which delete a message object in database
      * @param message
      */
-    public void deleteMessage (Message message){
+    public int deleteMessage (Message message) throws Exception{
 
-    	
+        int value = 0;
         try {
 
             int idMessage = message.getIdMessage();
@@ -96,12 +101,9 @@ public class MessageProvider {
 
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate(query);
+            value = stmt.executeUpdate(query);
 
             stmt.close();
-            conn.close();
-            conn = null;
-
 
         } catch (SQLException e) {
             System.out.println("SQL error : deleteMessage");
@@ -118,6 +120,7 @@ public class MessageProvider {
                 } catch (SQLException e) { e.printStackTrace();}
             }
         }
+        return value;
     }
 
     /**
@@ -126,7 +129,7 @@ public class MessageProvider {
      * @param nombre
      * @return Messages
      */
-    public Messages getMessagesFromIdDisccusion (int Discussion, int nombre){
+    public Messages getMessagesFromIdDisccusion (int discussion, int nombre){
 
 		Messages messages = new Messages();
 
@@ -138,7 +141,7 @@ public class MessageProvider {
 			if(conn==null) System.out.println("connexion null");
 			PreparedStatement ps = conn.prepareStatement(query);	
 
-			ps.setInt(1, Discussion);
+			ps.setInt(1, discussion);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -169,12 +172,12 @@ public class MessageProvider {
 			if (rs != null) {
 				try {
 					rs.close();
-				} catch (SQLException e) { /* ignoré */}
+				} catch (SQLException e) { /* ignorï¿½ */}
 			}
 			if (ps != null) {
 				try {
 					ps.close();
-				} catch (SQLException e) { /* ignoré */}
+				} catch (SQLException e) { /* ignorï¿½ */}
 			}
 		}
 
