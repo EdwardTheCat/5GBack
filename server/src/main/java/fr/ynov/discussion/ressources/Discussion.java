@@ -42,7 +42,7 @@ public class Discussion {
     /**
      * last Messages of Discussion
      */
-    private Messages lastMessages = new Messages();
+    private Messages lastMessages;
 
 
     private MessageProvider messageProvider;
@@ -54,13 +54,12 @@ public class Discussion {
         this.users = users;
     }
 
-    public Discussion(int id, String label, User creator, List<Integer> users) throws Exception {
+    public Discussion(int id, String label, User creator, List<Integer> users, Messages messages) throws Exception {
         this.id = id;
         this.label = label;
         this.creator = creator;
         this.users = users;
-        messageProvider = new MessageProvider();
-        this.lastMessages = messageProvider.getMessagesFromIdDisccusion(id,30);
+        this.lastMessages = messages;
     }
 
     public int getId() {
