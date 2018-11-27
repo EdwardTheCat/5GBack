@@ -74,7 +74,7 @@ public class UserProviderTest {
         Mockito.when(result.getString("user_first_name")).thenReturn("toto");
         Mockito.when(result.getString("user_mail")).thenReturn("toto@gmail.com");
         Mockito.when(result.getString("user_password")).thenReturn("password");
-        Mockito.when(result.getString("user_creation")).thenReturn(date.toString());
+        Mockito.when(result.getString("user_creation_date")).thenReturn(date.toString());
 
         userTest = userProvider.getUserByLogin("ProDuDev");
         Assert.assertEquals(user.getId(),userTest.getId());
@@ -100,7 +100,7 @@ public class UserProviderTest {
         Mockito.when(result.getBoolean("user_active")).thenReturn(true);
         Mockito.when(result.getBoolean("user_admin")).thenReturn(false);
         Mockito.when(result.getTimestamp("user_last_connection")).thenReturn(Timestamp.valueOf(date));
-        Mockito.when(result.getString("user_creation")).thenReturn(date.toString());
+        Mockito.when(result.getString("user_creation_date")).thenReturn(date.toString());
         Mockito.when(result.getString("user_status")).thenReturn("Connected");
         Mockito.when(result.getString("user_token")).thenReturn("token");
         Mockito.when(result.getString("user_login")).thenReturn("ProDuDev");
@@ -140,7 +140,7 @@ public class UserProviderTest {
         Mockito.when(result.getString("user_password")).thenReturn("password");
         Mockito.when(result.getBoolean(Mockito.anyString())).thenReturn(true).thenReturn(false);
         Mockito.when(result.getTimestamp("user_last_connection")).thenReturn(Timestamp.valueOf(date));
-        Mockito.when(result.getString("user_creation")).thenReturn(date.toString());
+        Mockito.when(result.getString("user_creation_date")).thenReturn(date.toString());
         Mockito.when(result.getString("user_status")).thenReturn("Connected");
         Mockito.when(result.getString("user_token")).thenReturn("token");
         Mockito.when(result.getString("user_login")).thenReturn("ProDuDev");
@@ -164,7 +164,7 @@ public class UserProviderTest {
         Mockito.when(result.getString("user_password")).thenReturn("password");
         Mockito.when(result.getBoolean(Mockito.anyString())).thenReturn(true);
         Mockito.when(result.getTimestamp("user_last_connection")).thenReturn(Timestamp.valueOf(date));
-        Mockito.when(result.getString("user_creation")).thenReturn(date.toString());
+        Mockito.when(result.getString("user_creation_date")).thenReturn(date.toString());
         Mockito.when(result.getString("user_status")).thenReturn("Connected");
         Mockito.when(result.getString("user_token")).thenReturn("token");
         Mockito.when(result.getString("user_login")).thenReturn("ProDuDev");
