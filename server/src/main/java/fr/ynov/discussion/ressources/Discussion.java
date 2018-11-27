@@ -45,9 +45,6 @@ public class Discussion {
     private Messages lastMessages;
 
 
-    private MessageProvider messageProvider;
-    private UserProvider userProvider;
-
     public Discussion(String label, List<Integer> users) {
         this.label = label;
         this.creator = creator;
@@ -108,7 +105,6 @@ public class Discussion {
      * @param userId
      */
     public int addUser(int userId)throws Exception{
-        userProvider = new UserProvider();
         if(!users.contains(userId)){
             users.add(userId);
         }
@@ -119,8 +115,8 @@ public class Discussion {
      * Method which delete user in discussion
      * @param userId
      */
-    public int leaveUser(int userId) {
-        if (!users.contains(userId)) {
+    public int leaveUser(Integer userId) {
+        if (users.contains(userId)) {
             users.remove(userId);
         }
         return users.size();

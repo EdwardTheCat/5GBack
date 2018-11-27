@@ -2,6 +2,7 @@ package fr.ynov.discussion.ressources;
 
 import fr.ynov.db.DBConnection;
 import fr.ynov.discussion.providers.DiscussionProvider;
+import fr.ynov.message.ressources.Messages;
 import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.User;
 import org.junit.Assert;
@@ -23,7 +24,7 @@ public class DiscussionTest {
         List<Integer> users = new ArrayList<Integer>();
         users.add(1);
         users.add(2);
-        discussion = new Discussion(1,"test",new User(1,"toto"),users);
+        discussion = new Discussion(1,"test",new User(1,"toto"),users,new Messages());
     }
 
     @Test
