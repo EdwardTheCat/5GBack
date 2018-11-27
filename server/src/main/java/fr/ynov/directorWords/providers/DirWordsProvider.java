@@ -31,8 +31,12 @@ public class DirWordsProvider {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public void UserProvider() throws SQLException, ClassNotFoundException {
+	public  DirWordsProvider() throws SQLException, ClassNotFoundException {
 		this.conn = DBConnection.getConnection();
+	}
+
+	public DirWordsProvider(Connection conn) {
+		this.conn = conn;
 	}
 
 	/**
@@ -40,7 +44,7 @@ public class DirWordsProvider {
 	 * @param dirWord
 	 * @throws SQLException
 	 */
-	public void createDirWord(DirWord dirWord) throws SQLException {
+	public int createDirWord(DirWord dirWord) throws SQLException {
 		String sql = "insert into 5g.dirword values (?,?,?,?)";
 
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -54,8 +58,18 @@ public class DirWordsProvider {
 		ps.setString	(3, formattedString1);
 		ps.setInt		(4, dirWord.getUserId());
 
-		ps.executeUpdate();
+		int value = ps.executeUpdate();
 
 		ps.close();
+		return value;
+	}
+
+	public DirWord getDirWord() throws SQLException {
+		ResultSet result = conn.createStatement().executeQuery("SELECT * FROM 5g.dirword LIMIT 1 ORDER BY dirword_date");
+		if (result.first()){
+			return new DirWord(result.getInt("dirword_id"),result.getString("dirword_sentence"),result.getTimestamp("dirword_date").toLocalDateTime(), result.getInt("dirword_user_id"));
+		} else {
+			return null;
+		}
 	}
 }

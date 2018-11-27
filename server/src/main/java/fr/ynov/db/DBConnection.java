@@ -12,7 +12,7 @@ import fr.ynov.db.DBConnection;
  * @author Audrey and Edward
  * @since v0
  */
-public class DBConnection {
+public class DBConnection{
 
     public final static String jdbcDriver = "com.mysql.cj.jdbc.Driver";
     /**
@@ -60,7 +60,7 @@ public class DBConnection {
     }
 	/**
 	 * Method which close the connection
-	 * 
+	 *
 	 */
 	//todo throw an exception
 	public void close() throws SQLException {
