@@ -47,7 +47,7 @@ public class User {
     /**
      * creationDate of User
      */
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     /**
      * status of User
      */
@@ -81,7 +81,7 @@ public class User {
      * @param token of User
      */
     public User (int id, String name, String firstname, String mail, String password, boolean isActive, boolean isAdmin,
-                 LocalDateTime lastConnectionDate, LocalDate creationDate, String status, String login, String token) {
+                 LocalDateTime lastConnectionDate, LocalDateTime creationDate, String status, String login, String token) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -106,7 +106,7 @@ public class User {
      * @param password of User
      * @param creationDate of User
      */
-    public User (int id, String name, String firstname, String mail, String password, LocalDate creationDate) {
+    public User (int id, String name, String firstname, String mail, String password, LocalDateTime creationDate) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -252,7 +252,7 @@ public class User {
      * Getter for creationDate property
      * @return creationDate
      */
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
@@ -260,7 +260,7 @@ public class User {
      * Setter for creationDate property
      * @param creationDate
      */
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

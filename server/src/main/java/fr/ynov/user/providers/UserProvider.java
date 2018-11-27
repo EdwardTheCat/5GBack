@@ -36,12 +36,16 @@ public class UserProvider {
         this.conn = DBConnection.getConnection();
     }
 
-    /**
+	public UserProvider(Connection conn) {
+		this.conn = conn;
+	}
+
+	/**
      * Method which add a user in database
      * @param user
      * @throws SQLException
      */
-    public void createUser (User user) throws SQLException {
+    public int createUser (User user) throws SQLException {
         String sql = "insert into 5g.user values (?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -65,11 +69,12 @@ public class UserProvider {
         ps.setString(10, formattedString2);
         ps.setString(11, user.getStatus());;
 
-        ps.executeUpdate();
+        int value = ps.executeUpdate();
 
         System.out.println(user);
 
         ps.close();
+        return value;
     }
     
     
@@ -88,7 +93,7 @@ public class UserProvider {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+			if(rs.first()) {
 				String password = rs.getString("user_password");
 				
 				user = new User ( 	rs.getInt("user_id"), 
@@ -96,7 +101,7 @@ public class UserProvider {
 									rs.getString("user_first_name"), 
 									rs.getString("user_mail"), 
 									rs.getString("user_password"),
-									LocalDate.parse(rs.getString("user_creation_date")) ); 
+									LocalDateTime.parse(rs.getString("user_creation_date")) );
 				System.out.println(user);
 			}
 			ps.close();
@@ -126,7 +131,7 @@ public class UserProvider {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.first()) {
 				String	name						= rs.getString("user_name");
 				String firstname 					= rs.getString("user_first_name");
 				String mail							= rs.getString("user_mail");
@@ -136,8 +141,7 @@ public class UserProvider {
 				Boolean isAdmin						= rs.getBoolean("user_admin");
 				Timestamp ts1 						= rs.getTimestamp("user_last_connection");
 				LocalDateTime lastConnectionDate	= ts1.toLocalDateTime();
-				DateTimeFormatter formatter2 		= DateTimeFormatter.ofPattern("dd/MM/yy");	
-				LocalDate creationDate				= LocalDate.parse(rs.getString("user_creation"), formatter2);
+				LocalDateTime creationDate			= LocalDateTime.parse(rs.getString("user_creation_date"));
 				String status						= rs.getString("user_status");
 				String token						= rs.getString("user_token");
 
@@ -151,8 +155,8 @@ public class UserProvider {
 									lastConnectionDate,
 									creationDate,
 									status,
-									token,
-									login);
+									login,
+									token);
 				System.out.println(user);
 			}
 			ps.close();
@@ -173,20 +177,19 @@ public class UserProvider {
      * Method which delete a user in database
      * @param user
      */
-	public void deleteUser (User user){
+	public int deleteUser (User user){
 		
 		try {
 			int id = user.getId();
 
 			String sql = "DELETE FROM USER WHERE user_id =" + id;
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
+			return conn.createStatement().executeUpdate(sql);
 
 		}catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
 			e.printStackTrace();
 		}
+		return 0;
 	}
 	
     /**
@@ -199,29 +202,26 @@ public class UserProvider {
 
 		try {
 			String sql = ("select * from 5g.user");
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = conn.createStatement().executeQuery(sql);
 
 			while (rs.next()) {
-				int id 										= rs.getInt("user_id");
-				String name 								= rs.getString("user_name");
-				String firstname							= rs.getString("user_first_name");
-				String password 							= rs.getString("user_password");
-				String mail									= rs.getString("user_mail");
-				boolean isActive							= rs.getBoolean("user_active");
-				boolean isAdmin								= rs.getBoolean("user_admin");
-				Timestamp ts1 								= rs.getTimestamp("user_last_connection");
-				LocalDateTime lastConnectionDate			= ts1.toLocalDateTime();
-				DateTimeFormatter formatter2 				= DateTimeFormatter.ofPattern("dd/MM/yy");	
-				LocalDate creationDate						= LocalDate.parse(rs.getString("user_creation"), formatter2);
-				String status								= rs.getString("user_status");
-				String token								= rs.getString("user_token");
-				String login								= rs.getString("user_login");
+				int id = rs.getInt("user_id");
+				String name = rs.getString("user_name");
+				String firstname = rs.getString("user_first_name");
+				String password = rs.getString("user_password");
+				String mail = rs.getString("user_mail");
+				boolean isActive = rs.getBoolean("user_active");
+				boolean isAdmin = rs.getBoolean("user_admin");
+				Timestamp ts1 = rs.getTimestamp("user_last_connection");
+				LocalDateTime lastConnectionDate = ts1.toLocalDateTime();
+				LocalDateTime creationDate = LocalDateTime.parse(rs.getString("user_creation_date"));
+				String status = rs.getString("user_status");
+				String token = rs.getString("user_token");
+				String login = rs.getString("user_login");
 
-				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, token, login);
+				User user = new User(id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, login, token);
 				users.add(user);
 			}
-			stmt.close();
 			System.out.println("liste users : "+ users);
 		} catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
@@ -235,8 +235,7 @@ public class UserProvider {
 
 		try {
 			String sql = ("select * from 5g.user");
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = conn.createStatement().executeQuery(sql);
 
 			while (rs.next()) {
 				int id 										= rs.getInt("user_id");
@@ -249,15 +248,14 @@ public class UserProvider {
 				Timestamp ts1 								= rs.getTimestamp("user_last_connection");
 				LocalDateTime lastConnectionDate			= ts1.toLocalDateTime();
 				DateTimeFormatter formatter2 				= DateTimeFormatter.ofPattern("dd/MM/yy");
-				LocalDate creationDate						= LocalDate.parse(rs.getString("user_creation"), formatter2);
+				LocalDateTime creationDate						= LocalDateTime.parse(rs.getString("user_creation"), formatter2);
 				String status								= rs.getString("user_status");
 				String token								= rs.getString("user_token");
 				String login								= rs.getString("user_login");
 
-				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, token, login);
+				User user = new User (id, name, firstname, mail, password, isActive, isAdmin, lastConnectionDate, creationDate, status, login, token);
 				users.add(user);
 			}
-			stmt.close();
 			System.out.println("liste users : "+ users);
 		} catch (SQLException e) {
 			System.out.println("Mauvaise connexion");
