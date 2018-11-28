@@ -2,13 +2,19 @@ package fr.ynov.discussion.providers;
 
 import fr.ynov.db.DBConnection;
 import fr.ynov.discussion.ressources.Discussion;
+import fr.ynov.message.providers.MessageProvider;
+import fr.ynov.message.ressources.Messages;
 import fr.ynov.user.providers.UserProvider;
 import fr.ynov.user.ressources.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +24,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class DiscussionProviderTest {
 
     @Mock
@@ -29,30 +37,43 @@ public class DiscussionProviderTest {
     @Mock
     private ResultSet result;
 
-    private DiscussionProvider discussionProvider;
+    @Mock
     private UserProvider userProvider;
+    @Mock
+    private MessageProvider messageProvider;
+
+    private DiscussionProvider discussionProvider;
 
     private Discussion discussion;
     private User user;
+    private Messages messages;
 
     @Before
     public void setUp() throws Exception {
-        Mockito.when(DBConnection.getConnection()).thenReturn(this.connection);
-        discussionProvider = new DiscussionProvider();
-        userProvider = new UserProvider();
+        MockitoAnnotations.initMocks(this);
+
+        discussionProvider = new DiscussionProvider(connection,userProvider,messageProvider);
+        Mockito.when(connection.createStatement()).thenReturn(statement);
+        Mockito.when(result.getInt("discussion_id")).thenReturn(1);
+        Mockito.when(result.getString("discussion_name")).thenReturn("test");
+        Mockito.when(result.getInt("discussion_creator")).thenReturn(1);
+        Mockito.when(result.getString("discussion_users")).thenReturn("[]");
+
         user = new User(1,"toto");
-        discussion  = new Discussion(1,"test",user,new ArrayList<Integer>());
+        messages = new Messages();
+        discussion  = new Discussion(1,"test",user,new ArrayList<Integer>(),messages);
+        Mockito.when(userProvider.getUserById(Mockito.anyInt())).thenReturn(user);
+        Mockito.when(messageProvider.getMessagesFromIdDisccusion(Mockito.anyInt(),Mockito.anyInt())).thenReturn(messages);
     }
 
     @Test
     public void addDiscussion() throws Exception {
         Discussion testDiscussion;
 
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(0);
+        Mockito.when(statement.executeUpdate(Mockito.anyString())).thenReturn(0).thenReturn(1);
+
         testDiscussion = discussionProvider.addDiscussion(discussion);
         Assert.assertEquals(null, testDiscussion);
-
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(1);
         testDiscussion = discussionProvider.addDiscussion(discussion);
         Assert.assertEquals(discussion, testDiscussion);
     }
@@ -61,17 +82,14 @@ public class DiscussionProviderTest {
     public void findDiscussionByName() throws Exception {
         Discussion testDiscussion;
 
-        Mockito.when(connection.createStatement().executeQuery("") ).thenReturn(result);
-        Mockito.when(result.getInt("discussion_id")).thenReturn(1);
-        Mockito.when(result.getString("discussion_name")).thenReturn("test");
-        Mockito.when(userProvider.getUserById(result.getInt("discussion_creator"))).thenReturn(user);
-        Mockito.when(result.getString("discussion_users")).thenReturn("[]");
+        Mockito.when(statement.executeQuery(Mockito.anyString()) ).thenReturn(result);
 
-        Mockito.when(result.first()).thenReturn(true);
+        Mockito.when(result.first()).thenReturn(true).thenReturn(false);
         testDiscussion = discussionProvider.findDiscussionByName("test");
-        Assert.assertEquals(discussion, testDiscussion);
-
-        Mockito.when(result.first()).thenReturn(false);
+        Assert.assertEquals(discussion.getId(), testDiscussion.getId());
+        Assert.assertEquals(discussion.getUsers(), testDiscussion.getUsers());
+        Assert.assertEquals(discussion.getCreator(), testDiscussion.getCreator());
+        Assert.assertEquals(discussion.getLabel(), testDiscussion.getLabel());
         testDiscussion = discussionProvider.findDiscussionByName("test");
         Assert.assertEquals(null, testDiscussion);
     }
@@ -80,17 +98,15 @@ public class DiscussionProviderTest {
     public void findDiscussionByUsers() throws Exception{
         Discussion testDiscussion;
 
-        Mockito.when(connection.createStatement().executeQuery("") ).thenReturn(result);
-        Mockito.when(result.getInt("discussion_id")).thenReturn(1);
-        Mockito.when(result.getString("discussion_name")).thenReturn("test");
-        Mockito.when(userProvider.getUserById(result.getInt("discussion_creator"))).thenReturn(user);
-        Mockito.when(result.getString("discussion_users")).thenReturn("[]");
+        Mockito.when(statement.executeQuery(Mockito.anyString()) ).thenReturn(result);
+        Mockito.when(result.first()).thenReturn(true).thenReturn(false);
 
-        Mockito.when(result.first()).thenReturn(true);
         testDiscussion = discussionProvider.findDiscussionByUsers(new ArrayList<Integer>()) ;
-        Assert.assertEquals(discussion, testDiscussion);
+        Assert.assertEquals(discussion.getId(), testDiscussion.getId());
+        Assert.assertEquals(discussion.getUsers(), testDiscussion.getUsers());
+        Assert.assertEquals(discussion.getCreator(), testDiscussion.getCreator());
+        Assert.assertEquals(discussion.getLabel(), testDiscussion.getLabel());
 
-        Mockito.when(result.first()).thenReturn(false);
         testDiscussion = discussionProvider.findDiscussionByUsers(new ArrayList<Integer>());
         Assert.assertEquals(null, testDiscussion);
     }
@@ -99,17 +115,15 @@ public class DiscussionProviderTest {
     public void findDiscussionById() throws Exception{
         Discussion testDiscussion;
 
-        Mockito.when(connection.createStatement().executeQuery("") ).thenReturn(result);
-        Mockito.when(result.getInt("discussion_id")).thenReturn(1);
-        Mockito.when(result.getString("discussion_name")).thenReturn("test");
-        Mockito.when(userProvider.getUserById(result.getInt("discussion_creator"))).thenReturn(user);
-        Mockito.when(result.getString("discussion_users")).thenReturn("[]");
+        Mockito.when(statement.executeQuery(Mockito.anyString())).thenReturn(result);
+        Mockito.when(result.first()).thenReturn(true).thenReturn(false);
 
-        Mockito.when(result.first()).thenReturn(true);
         testDiscussion = discussionProvider.findDiscussionById(1) ;
-        Assert.assertEquals(discussion, testDiscussion);
+        Assert.assertEquals(discussion.getId(), testDiscussion.getId());
+        Assert.assertEquals(discussion.getUsers(), testDiscussion.getUsers());
+        Assert.assertEquals(discussion.getCreator(), testDiscussion.getCreator());
+        Assert.assertEquals(discussion.getLabel(), testDiscussion.getLabel());
 
-        Mockito.when(result.first()).thenReturn(false);
         testDiscussion = discussionProvider.findDiscussionById(1);
         Assert.assertEquals(null, testDiscussion);
 
@@ -119,11 +133,10 @@ public class DiscussionProviderTest {
     public void updateDiscussion() throws Exception {
         List<Integer> list = new ArrayList<Integer>();
 
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(0);
+        Mockito.when(statement.executeUpdate(Mockito.anyString())).thenReturn(0).thenReturn(1);
         list = discussionProvider.updateDiscussion(discussion);
         Assert.assertEquals(null, list);
 
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(1);
         list = discussionProvider.updateDiscussion(discussion);
         Assert.assertEquals(new ArrayList<Integer>(), list);
 
@@ -132,11 +145,10 @@ public class DiscussionProviderTest {
     @Test
     public void deleteDiscussion() throws Exception {
         int result;
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(0);
+        Mockito.when(statement.executeUpdate(Mockito.anyString())).thenReturn(0).thenReturn(1);
         result = discussionProvider.deleteDiscussion(1);
         Assert.assertEquals(0,result);
 
-        Mockito.when(connection.createStatement().executeUpdate("")).thenReturn(1);
         result = discussionProvider.deleteDiscussion(1);
         Assert.assertEquals(1,result);
     }

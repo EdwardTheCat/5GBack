@@ -54,6 +54,12 @@ public class DiscussionProvider {
         messageProvider = new MessageProvider(connection);
     }
 
+    public DiscussionProvider(Connection connection, UserProvider userProvider, MessageProvider messageProvider) {
+        this.connection = connection;
+        this.userProvider = userProvider;
+        this.messageProvider = messageProvider;
+    }
+
     /**
      * Method which add a discussion from database
      * @param discussion discussion entity
@@ -95,7 +101,7 @@ public class DiscussionProvider {
         JSONArray usersJson = new JSONArray(usersId);
         ResultSet result = connection.createStatement().executeQuery(query.format(query, usersJson.toString()));
         if (result.first()) {
-             return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId,messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
+             return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId,messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
         }
         return null;
     }
@@ -104,7 +110,7 @@ public class DiscussionProvider {
         java.lang.String query = "%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query, id));
         if (result.first()){
-            return new Discussion(Integer.parseInt(result.getString("discussion_id")), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
+            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
         }
         return null;
     }
