@@ -2,6 +2,7 @@ package fr.ynov.token.services;
 
 import fr.ynov.response.Response;
 import fr.ynov.response.ResponseEnum;
+import fr.ynov.security.JwtTokenAuthenticationFilter;
 import fr.ynov.token.ressources.Token;
 import fr.ynov.user.ressources.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class TokenService {
             User user  = null; //TODO: find user by Login
             if (user != null && user.getPassword() == motDePasse){
                //TODO: generate JWT
+                JwtTokenAuthenticationFilter Jwt = new JwtTokenAuthenticationFilter();
                 Token token = new Token();
                 return new Response(ResponseEnum.connected.getType(),ResponseEnum.connected.getCode(),ResponseEnum.connected.getDescription(),token.getSecret());
             } else {
