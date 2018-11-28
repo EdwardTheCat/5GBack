@@ -4,13 +4,10 @@ import fr.ynov.db.DBConnection;
 import fr.ynov.directorWords.ressources.DirWord;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -72,4 +69,25 @@ public class DirWordsProvider {
 			return null;
 		}
 	}
+	
+	
+	
+	/**
+	 * Method which update a director words in database
+	 * @param dirWord
+	 * @throws SQLException
+	 */
+	public void updateDirWords (DirWord dirWord) throws SQLException{
+
+			int id = dirWord.getId();
+			String sentence = dirWord.getSentence();
+			int userId = dirWord.getUserId();
+			
+			String sql = "UPDATE 5g.dirword SET dir_word_sentence = '" + sentence + "', dir_word_date = current_timestamp, user_id=" + userId + " WHERE dir_word_id = " + id;
+			
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} 
+	
 }
