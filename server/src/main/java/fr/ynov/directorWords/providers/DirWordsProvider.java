@@ -38,6 +38,7 @@ public class DirWordsProvider {
 
 	/**
 	 * Method which add a director words in database
+	 * @author Audrey
 	 * @param dirWord
 	 * @throws SQLException
 	 */
