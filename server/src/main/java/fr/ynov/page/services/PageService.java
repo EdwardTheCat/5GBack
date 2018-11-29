@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.ynov.directorWords.providers.DirWordsProvider;
+import fr.ynov.directorWords.ressources.DirWord;
+
+import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
@@ -57,9 +61,21 @@ public class PageService {
     @GetMapping("/word")
     public ModelAndView displayWord(Map<String, Object> model) {
 
-        String title = "Word";
-
-        model.put("title", title);
+    	DirWord word = null;
+    	
+    	DirWordsProvider dirWordsProvider;
+		try {
+			dirWordsProvider = new DirWordsProvider();
+			word = dirWordsProvider.getDirWord();
+			model.put("title", "Word");
+			model.put("word", word.getSentence());
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 
         return new ModelAndView("word", model);
     }

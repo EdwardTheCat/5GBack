@@ -93,6 +93,9 @@ public class MessageProvider {
     public int deleteMessage (Message message) throws Exception{
 
         int value = 0;
+        
+        if(conn == null) DBConnection.getConnection();
+        
         try {
 
             int idMessage = message.getIdMessage();
@@ -132,20 +135,18 @@ public class MessageProvider {
     public Messages getMessagesFromIdDisccusion (int discussion, int nombre){
 
 		Messages messages = new Messages();
-
+		
+		if(conn == null) DBConnection.getConnection();
+		
 		try {
 
 			String query = "SELECT * FROM message WHERE message.id_discussion = ? LIMIT " + nombre;
 
-			if(conn==null) this.conn = DBConnection.getConnection();
-			if(conn==null) System.out.println("connexion null");
 			PreparedStatement ps = conn.prepareStatement(query);	
 
 			ps.setInt(1, discussion);
 
 			ResultSet rs = ps.executeQuery();
-
-
 
 			while (rs.next()) {
 
@@ -172,12 +173,12 @@ public class MessageProvider {
 			if (rs != null) {
 				try {
 					rs.close();
-				} catch (SQLException e) { /* ignor� */}
+				} catch (SQLException e) { e.printStackTrace();}
 			}
 			if (ps != null) {
 				try {
 					ps.close();
-				} catch (SQLException e) { /* ignor� */}
+				} catch (SQLException e) { e.printStackTrace(); }
 			}
 		}
 

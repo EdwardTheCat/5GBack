@@ -63,9 +63,9 @@ public class DirWordsProvider {
 	}
 
 	public DirWord getDirWord() throws SQLException {
-		ResultSet result = conn.createStatement().executeQuery("SELECT * FROM 5g.dirword LIMIT 1 ORDER BY dirword_date");
+		ResultSet result = conn.createStatement().executeQuery("SELECT * FROM 5g.dirword  ORDER BY dir_word_date ASC LIMIT 1");
 		if (result.first()){
-			return new DirWord(result.getInt("dirword_id"),result.getString("dirword_sentence"),result.getTimestamp("dirword_date").toLocalDateTime(), result.getInt("dirword_user_id"));
+			return new DirWord(result.getInt("dir_word_id"),result.getString("dir_word_sentence"),result.getTimestamp("dir_word_date").toLocalDateTime(), result.getInt("user_id"));
 		} else {
 			return null;
 		}

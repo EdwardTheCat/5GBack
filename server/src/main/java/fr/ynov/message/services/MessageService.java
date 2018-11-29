@@ -42,7 +42,7 @@ public class MessageService {
     @GetMapping( path="restapi/discussions/get-messages/{idDiscussion}", produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Response getMessages(@PathVariable int idDiscussion , @RequestParam (value= "number", defaultValue = "2") int number ) {
 		
-    	System.out.println("ici");
+   
     	Response response;
     	messageProv = new MessageProvider();
 		Messages messages = messageProv.getMessagesFromIdDisccusion(idDiscussion, number);
