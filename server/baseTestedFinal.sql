@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS discussion (
   id_discussion int(4) unsigned NOT NULL AUTO_INCREMENT,
   name_discussion varchar(32),
   creator_discussion INT unsigned NOT NULL,
+  users_discussion VARCHAR(45) NOT NULL DEFAULT "userDefault",
   PRIMARY KEY (id_discussion),
   FOREIGN KEY (creator_discussion) REFERENCES user(user_id) ON DELETE CASCADE
   );
@@ -47,15 +48,6 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (id_message),
   FOREIGN KEY (id_discussion) REFERENCES discussion(id_discussion) ON DELETE CASCADE,
   FOREIGN KEY (id_author) REFERENCES user(user_id) ON DELETE CASCADE
-  );
-
-/*table membre_discussion */
-CREATE TABLE IF NOT EXISTS membre_discussion (
-  id_discussion int(4) unsigned NOT NULL,
-  id_user INT unsigned NOT NULL ,
-  PRIMARY KEY (id_discussion, id_user),
-  FOREIGN KEY (id_discussion) REFERENCES discussion(id_discussion) ON DELETE CASCADE,
-  FOREIGN KEY (id_user) REFERENCES user(user_id) ON DELETE CASCADE
   );
 
 insert into user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_creation, user_status, user_token) values 
@@ -79,18 +71,7 @@ insert into `message` (content, id_author, id_discussion, created_at) values
 ("contenu4", 2, 2, current_timestamp(3) ),
 ("contenufrzrf", 2, 3, current_timestamp(3) ),
 ("contenudezdze", 2, 1, current_timestamp(3) ),
-("contenufzcze", 3, 1, current_timestamp(3) ),
-("contenuvrezzec", 3, 4, current_timestamp(3) );
-
-
-insert into membre_discussion (id_discussion, id_user) values 
-(1,1),
-(1,5),
-(2,1),
-(2,2),
-(2,3),
-(3,1),
-(3,4),
-(3,2);
+("contenufzcze", 3, 1, current_timestamp(3) )
+;
 
 insert into dirword (dir_word_sentence, dir_word_date, created_at, user_id) values ('Bonjour l\'équipe 5g', current_timestamp(), current_timestamp(3), 1 );
