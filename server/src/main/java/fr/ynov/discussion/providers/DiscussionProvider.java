@@ -67,7 +67,7 @@ public class DiscussionProvider {
      */
 
     public Discussion addDiscussion(Discussion discussion) throws Exception {
-        java.lang.String query = "%1$s,%2$s";
+        java.lang.String query = "INSERT INTO discussion (name_discussion,creator_discussion, users_discussion) values(%1$s,%2$d,%3$s)";
         JSONArray usersJson = new JSONArray(discussion.getUsers());
         int result = connection.createStatement().executeUpdate(query.format(query,discussion.getLabel(),discussion.getCreator(),usersJson.toString()));
         if (result == 0){
@@ -83,10 +83,10 @@ public class DiscussionProvider {
      * @throws Exception
      */
     public Discussion findDiscussionByName(String name) throws Exception {
-        java.lang.String query = "%1$s";
+        java.lang.String query = "SELECT * FROM discussion WHERE name_discussion=%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query,name));
         if (result.first()) {
-            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
+            return new Discussion(result.getInt("id_discussion"), result.getString("name_discussion"), userProvider.getUserById(result.getInt("creator_discussion")), ConvertToList(result.getString("users_discussion")),messageProvider.getMessagesFromIdDisccusion(result.getInt("id_discussion"),50));
         }
         return null;
     }
@@ -97,27 +97,27 @@ public class DiscussionProvider {
      * @throws SQLException
      */
     public Discussion findDiscussionByUsers(List<Integer> usersId) throws Exception {
-        java.lang.String query = "%1$s";
+        java.lang.String query = "SELECT * FROM discussion WHERE users_discussion=%1$s";
         JSONArray usersJson = new JSONArray(usersId);
         ResultSet result = connection.createStatement().executeQuery(query.format(query, usersJson.toString()));
         if (result.first()) {
-             return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), usersId,messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
+             return new Discussion(result.getInt("id_discussion"), result.getString("name_discussion"), userProvider.getUserById(result.getInt("creator_discussion")), usersId,messageProvider.getMessagesFromIdDisccusion(result.getInt("id_discussion"),50));
         }
         return null;
     }
 
     public Discussion findDiscussionById(int id) throws Exception {
-        java.lang.String query = "%1$s";
+        java.lang.String query = "SELECT * FROM discussion WHERE id_discussion=%1$s";
         ResultSet result = connection.createStatement().executeQuery(query.format(query, id));
         if (result.first()){
-            return new Discussion(result.getInt("discussion_id"), result.getString("discussion_name"), userProvider.getUserById(result.getInt("discussion_creator")), ConvertToList(result.getString("discussion_users")),messageProvider.getMessagesFromIdDisccusion(result.getInt("discussion_id"),50));
+            return new Discussion(result.getInt("id_discussion"), result.getString("name_discussion"), userProvider.getUserById(result.getInt("creator_discussion")), ConvertToList(result.getString("users_discussion")),messageProvider.getMessagesFromIdDisccusion(result.getInt("id_discussion"),50));
         }
         return null;
     }
 
 
     public List<Integer> updateDiscussion(Discussion discussion)throws SQLException{
-        java.lang.String query = "%1$s";
+        java.lang.String query = "UPDATE discussion SET users_discussion='%2$s' WHERE id_discussion=%1$s";
         JSONArray usersJson = new JSONArray();
         for (int user: discussion.getUsers()) {
                 usersJson.put(user);
@@ -131,7 +131,7 @@ public class DiscussionProvider {
     }
 
     public int deleteDiscussion(int id)throws SQLException{
-        java.lang.String query = "%1$s";
+        java.lang.String query = "DELETE FROM discussion WHERE id_discussion=%1$s";
         return connection.createStatement().executeUpdate(query.format(query, id));
     }
 
