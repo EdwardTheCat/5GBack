@@ -9,6 +9,7 @@ import fr.ynov.user.ressources.User;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,11 +67,14 @@ public class Discussion {
     public void setId(int id) {
         this.id = id;
     }
-
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Setter for label property
+     * @param label
+     */
     public void setLabel(String label) {
         this.label = label;
     }

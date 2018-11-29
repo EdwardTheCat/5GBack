@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import fr.ynov.db.DBConnection;
 
 /**
  * Class in shape of Singleton to manage a connection to the MySql database
@@ -12,12 +11,14 @@ import fr.ynov.db.DBConnection;
  * @author Audrey and Edward
  * @since v0
  */
+
 public class DBConnection{
 
     public final static String jdbcDriver = "com.mysql.cj.jdbc.Driver";
     /**
      * Instance property : Connection
      */
+
 	private static Connection instance;
 
     /**
@@ -42,6 +43,7 @@ public class DBConnection{
      * @throws SQLException
      * @throws ClassNotFoundException
      */
+
     public static Connection getConnection(){
         try {
 	    	if(DBConnection.instance == null) {

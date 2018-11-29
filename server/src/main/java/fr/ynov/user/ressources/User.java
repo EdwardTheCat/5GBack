@@ -94,7 +94,6 @@ public class User {
         this.status = status;
         this.token = token;
         this.login = login;
-        
     }
 
     /**
