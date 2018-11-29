@@ -1,4 +1,8 @@
 # 5G- Groupe Back 1
+## Release	
+- Master: Projet sans Gestion du token de session et JWT
+- Develop: Projet avec la gestion du token de session et JWT (partie d'Alexis) 
+
 ## Installation du projet			   
 ### JDK 
 1. Download [JDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
