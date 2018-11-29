@@ -1,7 +1,7 @@
 # 5G- Groupe Back 1
 ## Release	
 - Master: Projet sans Gestion du token de session et JWT
-- Develop: Projet avec la gestion du token de session et JWT (partie d'Alexis) 
+- Develop: Projet avec la gestion du token de session et JWT (partie d'Alexis, Non fonctionnel) 
 
 ## Installation du projet			   
 ### JDK 
