@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 
 public class HeartBeatProvider {
 
+
+
     public HeartBeat findHeartBeatByUserId(int UserId){
 
         try {
@@ -19,8 +21,6 @@ public class HeartBeatProvider {
             if(conn==null){
                 System.out.println("connexion null");
             PreparedStatement ps = conn.prepareStatement(query);
-
-
     }
 
 
@@ -61,8 +61,6 @@ public class HeartBeatProvider {
         }
         return res;
     }
-
-
 }
 
     public void deleteHeartBeat(HeartBeat hb){
