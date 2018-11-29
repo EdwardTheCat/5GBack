@@ -3,9 +3,7 @@ package fr.ynov.message.ressources;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * Class that represents a Message object
  *
@@ -27,11 +25,13 @@ public class Message {
     /**
      * Author of the message
      */
+
 	@JsonProperty("author")
     private int idAuthor;
     /**
      * Id of the discussion which is linked to the message
      */
+
 	@JsonProperty("discussion")
     private int idDiscussion;
     /**
@@ -135,6 +135,7 @@ public class Message {
      * Getter for createdAt property
      * @return createdAt
      */
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -145,6 +146,5 @@ public class Message {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
 }
 

@@ -1,8 +1,6 @@
 package fr.ynov.message.providers;
 
 import java.sql.Connection;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +38,7 @@ public class MessageProvider {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
+  
     public MessageProvider(){
         this.conn = DBConnection.getConnection();
     }
@@ -58,7 +57,7 @@ public class MessageProvider {
         int res = 0;
 
     	if(conn == null) DBConnection.getConnection();
-    	
+
         try {
             String query = "INSERT INTO message (content, id_author, id_discussion, created_at) VALUES (?,?,?,?)";
 
@@ -87,6 +86,7 @@ public class MessageProvider {
 
 
     /**
+
      * Method which delete a message object in database
      * @param message
      */

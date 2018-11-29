@@ -1,10 +1,9 @@
+
 package fr.ynov.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
-
 
 /**
  * Class that represents a Response object
@@ -22,6 +21,7 @@ public class Response {
     /**
      * code of Response
      */
+
 	@JsonProperty("code")
     private String code;
     /**
@@ -127,4 +127,3 @@ public class Response {
         this.payload = payload;
     }
 }
-

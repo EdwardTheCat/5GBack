@@ -1,4 +1,3 @@
-
 package fr.ynov.response;
 /**
  * Enum that represents a any Response value
@@ -23,8 +22,8 @@ public enum ResponseEnum {
     discussionLeft("discussion","T0010","Vous avez quittÃ© la conversation"),
     discussionList("discussion","T0011","Liste des discussions auxquelles vous prenez part"),
     messageAdded("discussion", "T0012","Message enregistrÃ© avec succÃ¨s"),
-    messagesRetrieved("discussion","T0012","Récupération des messages d'une discussion"),
-    messagePost("discussion","T0013","Message enregistré avec succès"),
+    messagesRetrieved("discussion","T0012","Rï¿½cupï¿½ration des messages d'une discussion"),
+    messagePost("discussion","T0013","Message enregistrï¿½ avec succï¿½s"),
     /**
      * error value of Response
      */

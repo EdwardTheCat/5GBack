@@ -1,10 +1,7 @@
 package fr.ynov.user.ressources;
-
 import java.util.ArrayList;
 
 import fr.ynov.user.ressources.User;
-
-
 /**
  * Class that represents an ArrayList of User
  *
@@ -15,5 +12,4 @@ import fr.ynov.user.ressources.User;
 public class Users extends ArrayList<User>{
 
 		private static final long serialVersionUID = 1L;
-
 }

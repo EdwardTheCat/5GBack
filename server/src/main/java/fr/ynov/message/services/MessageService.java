@@ -176,4 +176,3 @@ class HolderGetMessage{
 			this.content = content;
 		}
 }
-
