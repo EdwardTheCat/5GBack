@@ -3,95 +3,45 @@ package fr.ynov.token.provider;
 import fr.ynov.db.DBConnection;
 import fr.ynov.token.ressources.HeartBeat;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class HeartBeatProvider {
 
+    private Connection conn;
 
-
-    public HeartBeat findHeartBeatByUserId(int UserId){
-
-        try {
-
-            String query = "SELECT * FROM User WHERE User.id = ? ";
-
-            if(conn==null){
-                this.conn = DBConnection.getConnection();}
-
-            if(conn==null){
-                System.out.println("connexion null");
-            PreparedStatement ps = conn.prepareStatement(query);
+    public HeartBeatProvider() {
+        this.conn = DBConnection.getConnection();
     }
 
+    public HeartBeat findHeartBeatByUserId(int UserId) throws Exception{
 
-}
-
-    public void updateHeartBeat(HeartBeat hb){
-
-        if(40 secondes){
-            HeartBeat hb = new HeartBeat();
-        }
-
-    }
-
-    public void addHeartBeat(HeartBeat hb){
-
-        HeartBeat hb = new HeartBeat();
-
-        if(conn == null) DBConnection.getConnection();
-
-        try {
-            String query = "ADD FROM token WHERE token";
-
+            String query = "SELECT * FROM User WHERE user_id = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
-
-            ps.setString	(1, token.getContent());
-            res = ps.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("SQL error : Ajoute heartbeat");
-            e.printStackTrace();
-
-        } finally  {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) { e.printStackTrace();}
+            ps.setInt(1,UserId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.first()) {
+                return new HeartBeat(rs.getString("user_token"));
             }
-        }
-        return res;
+            return null;
     }
-}
 
-    public void deleteHeartBeat(HeartBeat hb){
+    public void addHeartBeat(HeartBeat hb)throws Exception{
+            String query = "INSERT INTO User WHERE user_token = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString	(1, hb.getToken());
+            int res = ps.executeUpdate();
+    }
 
-        int res = 0;
+    public void deleteHeartBeat(HeartBeat hb)throws Exception{
 
-        if(conn == null) DBConnection.getConnection();
-
-        try {
-            String query = "DELETE FROM token WHERE token";
+            String query = "DELETE FROM User WHERE user_token = ?";
 
             PreparedStatement ps = conn.prepareStatement(query);
 
-            ps.setString	(1, token.getContent());
-            res = ps.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("SQL error : Delete heartbeat");
-            e.printStackTrace();
-
-        } finally  {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) { e.printStackTrace();}
-            }
-        }
-        return res;
+            ps.setString	(1, hb.getToken());
+            int res = ps.executeUpdate();
     }
-
-    }
-
 }
 

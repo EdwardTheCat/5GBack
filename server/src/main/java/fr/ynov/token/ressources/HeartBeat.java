@@ -4,8 +4,8 @@ public class HeartBeat {
 
     private String token;
 
-    public Token(String login, String password){
-        token = "";
+    public HeartBeat(String token){
+        this.token = token;
     }
 
     public String getToken(){
