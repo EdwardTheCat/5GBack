@@ -3,7 +3,7 @@ package fr.ynov.message.ressources;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Class that represents a Message object
  *
@@ -15,30 +15,37 @@ public class Message {
     /**
      * Id stored in database
      */
-    private int idMessage;
+	@JsonProperty("id")
+    private int idMessage = 0;
     /**
      * Content of the message
      */
+	@JsonProperty("content")
     private String content;
     /**
      * Author of the message
      */
+
+	@JsonProperty("author")
     private int idAuthor;
     /**
      * Id of the discussion which is linked to the message
      */
+
+	@JsonProperty("discussion")
     private int idDiscussion;
     /**
      * Timestamp that represents the creation of the message
      * Use a "dd/MM/YY - hh:mm:sssss" format
      */
-    private Timestamp createdAt;
+	@JsonProperty("createdAt")
+    private LocalDateTime createdAt;
 
     /**
      * Constructor
+     * Empty constructor to do init stuff like store RequestBody data
      */
-    public Message() {};
-
+    public Message() {}
     /**
      * Constructor
      * @param idMessage message
@@ -47,7 +54,7 @@ public class Message {
      * @param idDiscussion of the discussion
      * @param createdAt creation
      */
-    public Message( int idMessage, String content, int idAuthor, int idDiscussion, Timestamp createdAt ) {
+    public Message( int idMessage, String content, int idAuthor, int idDiscussion, LocalDateTime createdAt ) {
 
         this.idMessage = idMessage;
         this.content = content;
@@ -128,14 +135,15 @@ public class Message {
      * Getter for createdAt property
      * @return createdAt
      */
-    public Timestamp getCreatedAt() {
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
     /**
      * Setter for createdAt property
      * @param createdAt
      */
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

@@ -47,7 +47,7 @@ public class User {
     /**
      * creationDate of User
      */
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     /**
      * status of User
      */
@@ -56,7 +56,10 @@ public class User {
      * login of User
      */
     private String login;
-
+    /**
+     * token of User
+     */
+    private String token;
     /**
      * Constructor.
      */
@@ -75,9 +78,10 @@ public class User {
      * @param creationDate of User
      * @param status of User
      * @param login of User
+     * @param token of User
      */
     public User (int id, String name, String firstname, String mail, String password, boolean isActive, boolean isAdmin,
-                 LocalDateTime lastConnectionDate, LocalDate creationDate, String status, String login) {
+                 LocalDateTime lastConnectionDate, LocalDateTime creationDate, String status, String login, String token) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -88,6 +92,7 @@ public class User {
         this.lastConnectionDate = lastConnectionDate;
         this.creationDate = creationDate;
         this.status = status;
+        this.token = token;
         this.login = login;
     }
 
@@ -100,7 +105,7 @@ public class User {
      * @param password of User
      * @param creationDate of User
      */
-    public User (int id, String name, String firstname, String mail, String password, LocalDate creationDate) {
+    public User (int id, String name, String firstname, String mail, String password, LocalDateTime creationDate) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -109,6 +114,10 @@ public class User {
         this.creationDate = creationDate;
     }
 
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     /**
      * Getter for id property
@@ -242,7 +251,7 @@ public class User {
      * Getter for creationDate property
      * @return creationDate
      */
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
@@ -250,7 +259,7 @@ public class User {
      * Setter for creationDate property
      * @param creationDate
      */
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -22,6 +22,8 @@ public enum ResponseEnum {
     discussionLeft("discussion","T0010","Vous avez quitté la conversation"),
     discussionList("discussion","T0011","Liste des discussions auxquelles vous prenez part"),
     messageAdded("discussion", "T0012","Message enregistré avec succès"),
+    messagesRetrieved("discussion","T0012","R�cup�ration des messages d'une discussion"),
+    messagePost("discussion","T0013","Message enregistr� avec succ�s"),
     /**
      * error value of Response
      */
@@ -83,5 +85,4 @@ public enum ResponseEnum {
     public String getDescription() {
         return description;
     }
-
 }

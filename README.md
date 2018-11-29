@@ -24,6 +24,7 @@
 
 /*USE SCHEMA*/ USE 5g;
 
+
 /*CREATE TABLE USER*/ CREATE TABLE user ( user_id INT NOT NULL AUTO_INCREMENT, user_name VARCHAR(30) NOT NULL, user_first_name VARCHAR(30), user_mail VARCHAR(50) NOT NULL, user_login VARCHAR(30), user_password VARCHAR(10), user_active BOOLEAN DEFAULT 1, user_admin BOOLEAN DEFAULT 0, user_last_connection TIMESTAMP, user_creation VARCHAR(30), user_status VARCHAR(30), user_token VARCHAR(200), PRIMARY KEY (user_id) ) ;
 
 /*CREATE TABLE MESSAGE*/ CREATE TABLE message ( id int(11) unsigned NOT NULL AUTO_INCREMENT, content varchar(45) NOT NULL, id_author int(11) unsigned NOT NULL, id_discussion int(11) unsigned NOT NULL, created_at timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3), PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=1;
