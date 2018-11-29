@@ -1,6 +1,6 @@
 # 5G- Groupe Back 1
 ## Release	
-- Master: Projet sans Gestion du token de session et JWT
+- Master: Projet sans la gestion du token de session et JWT
 - Develop: Projet avec la gestion du token de session et JWT (partie d'Alexis, Non fonctionnel) 
 
 ## Installation du projet			   
@@ -24,27 +24,83 @@
 
 2. Executer les requêtes suivantes :
 ```
-/*CREATE SCHEMA*/ CREATE SCHEMA 5g;
+use 5g;
 
-/*USE SCHEMA*/ USE 5g;
+/*CREATE TABLE USER*/
+CREATE TABLE IF NOT EXISTS user (
+     user_id INT unsigned NOT NULL AUTO_INCREMENT,
+     user_name VARCHAR(30) NOT NULL,
+     user_first_name VARCHAR(30),
+     user_mail VARCHAR(50) NOT NULL,
+     user_login VARCHAR(30),
+     user_password VARCHAR(10),
+     user_active BOOLEAN DEFAULT 1,
+     user_admin BOOLEAN DEFAULT 0,
+     user_last_connection TIMESTAMP,
+     user_creation VARCHAR(30),
+     user_status VARCHAR(30),
+     user_token VARCHAR(200),
+	PRIMARY KEY (user_id)
+) ;
 
+ CREATE TABLE IF NOT EXISTS dirword (
+  dir_word_id int(4) NOT NULL AUTO_INCREMENT,
+  dir_word_sentence text NOT NULL,
+  dir_word_date TIMESTAMP NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL,
+  user_id INT unsigned NOT NULL ,
+  PRIMARY KEY (dir_word_id),
+FOREIGN KEY (user_id) REFERENCES user (user_id)
+ON DELETE CASCADE
+);
 
-/*CREATE TABLE USER*/ CREATE TABLE user ( user_id INT NOT NULL AUTO_INCREMENT, user_name VARCHAR(30) NOT NULL, user_first_name VARCHAR(30), user_mail VARCHAR(50) NOT NULL, user_login VARCHAR(30), user_password VARCHAR(10), user_active BOOLEAN DEFAULT 1, user_admin BOOLEAN DEFAULT 0, user_last_connection TIMESTAMP, user_creation VARCHAR(30), user_status VARCHAR(30), user_token VARCHAR(200), PRIMARY KEY (user_id) ) ;
+/*table discussion*/
+CREATE TABLE IF NOT EXISTS discussion (
+  id_discussion int(4) unsigned NOT NULL AUTO_INCREMENT,
+  name_discussion varchar(32),
+  creator_discussion INT unsigned NOT NULL,
+  users_discussion VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_discussion),
+  FOREIGN KEY (creator_discussion) REFERENCES user(user_id) ON DELETE CASCADE
+  );
 
-/*CREATE TABLE MESSAGE*/ CREATE TABLE message ( id int(11) unsigned NOT NULL AUTO_INCREMENT, content varchar(45) NOT NULL, id_author int(11) unsigned NOT NULL, id_discussion int(11) unsigned NOT NULL, created_at timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3), PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=1;
+/*table message*/
+CREATE TABLE IF NOT EXISTS `message` (
+  id_message int(11) unsigned NOT NULL AUTO_INCREMENT,
+  content varchar(45) NOT NULL,
+  id_author INT unsigned NOT NULL , 
+  id_discussion int(4) unsigned NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL,
+  PRIMARY KEY (id_message),
+  FOREIGN KEY (id_discussion) REFERENCES discussion(id_discussion) ON DELETE CASCADE,
+  FOREIGN KEY (id_author) REFERENCES user(user_id) ON DELETE CASCADE
+  );
 
-/*INSERT DATAS USER*/ INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_last_connection, user_creation, user_status, user_token) VALUES ('Dupont', 'Tom', 'tom@localhost.fr', 'tomDupont', '123', 1, 0, '2008-11-13 21:52:00', '08/11/18', 'En ligne', '123ABC');
+insert into user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_creation, user_status, user_token) values 
+("test1", "test1", "test1@test.fr", "test1", "test1", true, true, current_timestamp(), "test1", "test1"),
+("test2", "test2", "test2@test.fr", "test2", "test2", true, true, current_timestamp(), "test2", "test2"),
+("test3", "test3", "test3@test.fr", "test3", "test3", true, true, current_timestamp(), "test3", "test3"),
+("test4", "test4", "test4@test.fr", "test4", "test4", true, true, current_timestamp(), "test4", "test4"),
+("test5", "test5", "test5@test.fr", "test5", "test5", true, true, current_timestamp(), "test5", "test5"),
+("test6", "test6", "test6@test.fr", "test6", "test6", true, true, current_timestamp(), "test6", "test6");
 
-INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_last_connection, user_creation, user_status, user_token) VALUES ('Duran', 'Pascal', 'pduran@localhost.fr', 'pduran', '456', 1, 1, '2008-11-18 11:48:00', '09/11/18', 'En ligne', '123BCD');
+insert into discussion (name_discussion, creator_discussion) values 
+("first", 1 ),
+("second", 2 ),
+("third", 5 ),
+("fourth", 1 );
 
-INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_last_connection, user_creation, user_status, user_token) VALUES ('Paul', 'Elodie', 'elodie@free.fr', 'elodie', 'AAA', 1, 0, '2008-11-17 13:12:00', '07/11/18', 'En ligne', 'ABCD12');
+insert into `message` (content, id_author, id_discussion, created_at) values 
+("contenu1", 1, 1, current_timestamp(3) ),
+("contenu2", 2, 1, current_timestamp(3) ),
+("contenu3", 5, 1, current_timestamp(3) ),
+("contenu4", 2, 2, current_timestamp(3) ),
+("contenufrzrf", 2, 3, current_timestamp(3) ),
+("contenudezdze", 2, 1, current_timestamp(3) ),
+("contenufzcze", 3, 1, current_timestamp(3) ),
+("contenuvrezzec", 3, 4, current_timestamp(3) );
 
-INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_last_connection, user_creation, user_status, user_token) VALUES ('Roger', 'Virginie', 'vir@gmail.com', 'viRog', 'Pass', 0, 0, '2008-11-17 05:54:00', '07/11/18', 'Déconnecté', '29PP13');
-
-INSERT INTO 5g.user (user_name, user_first_name, user_mail, user_login, user_password, user_active, user_admin, user_last_connection, user_creation, user_status, user_token) VALUES ('Bertrand', 'Paul', 'paul@gmail.com', 'pol12', '123Paul', 1, 0, '2008-11-15 11:12:00', '04/11/18', 'Absent', 'MJVFS8N9');
-
-/*INSERT DATAS MESSAGE*/ Insert INTO 5g.message (content, id_author, id_discussion, created_at) VALUES ("contenu message 1", 1, 1, current_timestamp(3)),
-("contenu message 1", 1, 1, current_timestamp(3)), ("contenu message 2", 2, 1, current_timestamp(3)+1), ("contenu message 3", 1, 1, current_timestamp(3)+2), ("contenu message 4", 3, 1, current_timestamp(3)+3), ("contenu message 5", 4, 1, current_timestamp(3)+4), ("contenu message 6", 1, 1, current_timestamp(3)+5), ("contenu message 7", 2, 1, current_timestamp(3)+6), ("contenu message 8", 1, 2, current_timestamp(3)+7), ("contenu message 9", 1, 2, current_timestamp(3)+8), ("contenu message 10", 4, 2, current_timestamp(3)+9), ("contenu message 11", 2, 2, current_timestamp(3)+10), ("contenu message 12", 4, 2, current_timestamp(3)+11) ;
+insert into dirword (dir_word_sentence, dir_word_date, created_at, user_id) values ('Bonjour l\'équipe 5g', current_timestamp(), current_timestamp(3), 1 );
 ```
 ## Deploiement du projet
 
